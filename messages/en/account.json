@@ -1,0 +1,196 @@
+{
+  "title": "Account",
+  "subtitle": "Your profile, security settings and current sign-in state",
+  "tabs": {
+    "profile": "Profile",
+    "security": "Security",
+    "tokens": "API tokens",
+    "sessions": "My sessions",
+    "about": "About"
+  },
+  "profile": {
+    "title": "Profile",
+    "subtitle": "You maintain these details yourself; an administrator can adjust them further under Administration",
+    "displayName": "Display name",
+    "displayNamePlaceholder": "e.g. Network operations",
+    "username": "Username",
+    "usernameHint": "The username cannot be changed. Contact an administrator if you need a different one.",
+    "ssoUser": "Single sign-on user",
+    "ssoUserHint": "This account is managed by the SSO provider; its password and two-factor authentication are controlled externally.",
+    "localUser": "Local account",
+    "permissions": "My permissions",
+    "permissionsHint": "The effective set merged from your user account and your group memberships.",
+    "noPermissions": "This account has not been granted any permissions.",
+    "canView": "View",
+    "canModify": "Modify",
+    "canDelete": "Delete",
+    "save": "Save profile",
+    "saving": "Saving…",
+    "saved": "Profile updated"
+  },
+  "security": {
+    "title": "Security settings",
+    "password": {
+      "title": "Change password",
+      "subtitle": "Your current session stays valid; other sessions must sign in again",
+      "current": "Current password",
+      "next": "New password",
+      "confirm": "Confirm new password",
+      "submit": "Change password",
+      "submitting": "Submitting…",
+      "success": "Password changed",
+      "mismatch": "The two new passwords do not match",
+      "tooShort": "The new password must be at least {min} characters",
+      "sameAsCurrent": "The new password must differ from the current one",
+      "strength": {
+        "label": "Password strength",
+        "weak": "Weak",
+        "fair": "Fair",
+        "good": "Good",
+        "strong": "Strong",
+        "hintLength": "At least {min} characters",
+        "hintMix": "Mix upper and lower case letters, numbers and symbols",
+        "hintCommon": "Avoid common passwords"
+      }
+    },
+    "totp": {
+      "title": "Two-factor authentication (TOTP)",
+      "subtitle": "Use an authenticator app to generate one-time codes and add a second layer of defense to your account",
+      "statusEnabled": "Enabled",
+      "statusDisabled": "Not enabled",
+      "enable": "Enable two-factor",
+      "disable": "Disable two-factor",
+      "step1": "Step 1 · Scan the QR code or enter the secret manually",
+      "step1Hint": "Scan the QR code with Google Authenticator, Microsoft Authenticator, 1Password or any similar app. If you cannot scan it, type the secret key below by hand.",
+      "secret": "Secret key",
+      "copySecret": "Copy secret",
+      "copied": "Secret copied to clipboard",
+      "qrAlt": "TOTP QR code",
+      "step2": "Step 2 · Enter a code to finish setup",
+      "step2Hint": "Enter the 6-digit code currently shown in your app.",
+      "code": "Verification code",
+      "codePlaceholder": "000000",
+      "confirmEnable": "Confirm and enable",
+      "confirming": "Verifying…",
+      "enabled": "Two-factor authentication is enabled",
+      "disableHint": "Once disabled, sign-in no longer asks for a code and your account is less protected.",
+      "disableConfirm": "Disable two-factor authentication?",
+      "disableCode": "Current code",
+      "confirmDisable": "Confirm disable",
+      "disabled": "Two-factor authentication is disabled",
+      "cancel": "Cancel setup",
+      "invalidCode": "That code is incorrect. Make sure your device clock is synchronized."
+    }
+  },
+  "tokens": {
+    "title": "API tokens",
+    "subtitle": "Long-lived access tokens for scripts and automation integrations",
+    "create": "Create token",
+    "creating": "Creating…",
+    "name": "Token name",
+    "namePlaceholder": "e.g. Backup script",
+    "nameHint": "Used to tell tokens apart in the list. It cannot be changed after creation.",
+    "created": "Token created",
+    "revealOnce": {
+      "title": "Save your token now",
+      "body": "The token is shown only once. After you close this it cannot be viewed again — if you lose it, create a new one.",
+      "token": "Token value",
+      "copy": "Copy token",
+      "copied": "Token copied",
+      "download": "Download as .txt",
+      "done": "I have saved it — close"
+    },
+    "table": {
+      "name": "Name",
+      "partial": "Token fingerprint",
+      "created": "Created",
+      "lastUsed": "Last used",
+      "never": "Never used",
+      "actions": "Actions",
+      "empty": "No tokens created yet"
+    },
+    "delete": "Delete",
+    "deleteConfirm": "Delete the token “{name}”? Scripts using it stop working immediately.",
+    "deleted": "Token deleted",
+    "loginWithToken": {
+      "title": "Sign in with an API token",
+      "body": "If you already have a long-lived token, paste it to sign in without a password.",
+      "placeholder": "Paste your token",
+      "submit": "Sign in with token"
+    }
+  },
+  "sessions": {
+    "title": "My sessions",
+    "subtitle": "Every active session for this account across all devices. Revoke one immediately if it looks suspicious.",
+    "current": "Current session",
+    "token": "Token fingerprint",
+    "type": "Type",
+    "typeName": "Token name",
+    "lastSeen": "Last seen",
+    "address": "Remote address",
+    "userAgent": "Client",
+    "revoke": "Revoke",
+    "revokeConfirm": "Revoke this session? That device is signed out immediately.",
+    "revoked": "Session revoked",
+    "revokeOthers": "Revoke all other sessions",
+    "revokeOthersConfirm": "Revoke every session except this device?",
+    "empty": "No active sessions",
+    "typeSession": "Sign-in session",
+    "typeApi": "API token",
+    "typeSingleUse": "Single-use token"
+  },
+  "about": {
+    "title": "About",
+    "subtitle": "Server and console information",
+    "server": {
+      "title": "DNS server",
+      "version": "Version",
+      "uptime": "Uptime",
+      "domain": "Server domain",
+      "node": "Current node",
+      "clusterInitialized": "Cluster initialized",
+      "dnssecValidation": "DNSSEC validation",
+      "checkUpdate": "Check for updates",
+      "checking": "Checking…",
+      "updateAvailable": "New version available: {version}",
+      "upToDate": "You are on the latest version",
+      "updateFailed": "Could not check for updates",
+      "downloadUpdate": "Go to download",
+      "installedOn": "Installed on",
+      "serverType": "Server type"
+    },
+    "defaults": {
+      "title": "Default record settings",
+      "recordTtl": "Record TTL",
+      "nsRecordTtl": "NS record TTL",
+      "soaRecordTtl": "SOA record TTL",
+      "soaSerialScheme": "SOA serial scheme",
+      "schemeSerial": "Incrementing serial",
+      "schemeDate": "Date scheme"
+    },
+    "console": {
+      "title": "This console",
+      "version": "Version",
+      "builtWith": "Built with",
+      "description": "A modern administration interface redesigned for Technitium DNS Server. It reaches the upstream API through a server-side proxy, and tokens are kept in httpOnly cookies that browser scripts cannot read.",
+      "locale": "Interface language",
+      "theme": "Theme",
+      "target": "Current server"
+    },
+    "credits": {
+      "title": "Credits",
+      "body": "This project builds on the public HTTP API of Technitium DNS Server and is independent of the upstream project. DNS Server is copyright Technitium."
+    },
+    "links": {
+      "title": "Links",
+      "upstream": "Upstream project",
+      "apiDocs": "API endpoint reference",
+      "issues": "Report an issue"
+    }
+  },
+  "logout": {
+    "label": "Sign out",
+    "confirm": "Sign out?",
+    "success": "Signed out"
+  }
+}

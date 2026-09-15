@@ -1,0 +1,170 @@
+{
+  "title": "DNS client",
+  "subtitle": "Have the server perform a resolution on your behalf and inspect the full message details",
+  "form": {
+    "server": "Name server",
+    "serverPlaceholder": "this-server or 8.8.8.8",
+    "serverHelp": "Enter this-server to resolve recursively on this machine, or provide any IP, host:port, or https:// DoH endpoint.",
+    "presets": "Common resolvers",
+    "groupThisServer": "This server",
+    "groupPublic": "Public resolvers",
+    "groupDoh": "DoH resolvers",
+    "groupCustom": "Custom",
+    "customServer": "Custom name server",
+    "domain": "Query name",
+    "domainPlaceholder": "example.com",
+    "type": "Record type",
+    "protocol": "Transport protocol",
+    "protocolHelp": "UDP is the most compatible. DoH, DoT and DoQ require the target server to support the corresponding port.",
+    "dnssec": "Request DNSSEC validation",
+    "dnssecHelp": "Sets the AD bit in the request. The server returns signatures and validation status.",
+    "eDnsClientSubnet": "EDNS Client Subnet",
+    "eDnsClientSubnetPlaceholder": "1.2.3.0/24",
+    "eDnsClientSubnetHelp": "Optional. The client subnet disclosed to upstream resolvers, used to obtain closer CDN answers.",
+    "import": "Write response into a zone",
+    "importHelp": "Write the resolution results to the server as zone records.",
+    "importWarning": "Records go into an existing primary or conditional-forwarder zone that matches. If no zone matches, the server creates a new primary zone for the domain.",
+    "submit": "Resolve",
+    "submitting": "Resolving…",
+    "reset": "Clear",
+    "invalidDomain": "Enter the domain to query",
+    "invalidServer": "Enter the name server address"
+  },
+  "importConfirm": {
+    "title": "Add as zone record",
+    "body": "Every record in this response is written to the server. If no existing zone matches, a new primary zone for “{domain}” is created. This cannot be undone.",
+    "action": "Write to zone",
+    "submitting": "Writing…"
+  },
+  "result": {
+    "title": "Resolution result",
+    "empty": "Fill in the query parameters and click Resolve",
+    "emptyHint": "The result shows the full DNS message, including the question, answer and EDNS option sections.",
+    "summary": {
+      "rcode": "RCODE",
+      "server": "Answering server",
+      "protocol": "Protocol",
+      "datagramSize": "Message size",
+      "rtt": "Round-trip time",
+      "identifier": "Identifier",
+      "authoritative": "Authoritative",
+      "truncated": "Truncation",
+      "recursionDesired": "Recursion desired",
+      "recursionAvailable": "Recursion available",
+      "authenticData": "AuthenticData",
+      "checkingDisabled": "Checking disabled",
+      "opcode": "OPCODE",
+      "counts": "Counts"
+    },
+    "counts": {
+      "question": "QDCOUNT",
+      "answer": "ANCOUNT",
+      "authority": "NSCOUNT",
+      "additional": "ARCOUNT"
+    },
+    "sections": {
+      "question": "Question",
+      "answer": "Answer",
+      "authority": "Authority",
+      "additional": "Additional",
+      "edns": "EDNS",
+      "raw": "Raw message",
+      "metadata": "Metadata"
+    },
+    "columns": {
+      "name": "Name",
+      "type": "Type",
+      "class": "Class",
+      "ttl": "TTL",
+      "rdlength": "RDLENGTH",
+      "rdata": "Record data",
+      "dnssec": "DNSSEC"
+    },
+    "noAnswer": "The server returned no answer records",
+    "noAnswerHint": "Response code was {rcode}. The name may not exist or was blocked by policy.",
+    "edns": {
+      "version": "Version",
+      "flags": "Flags",
+      "extendedRcode": "Extended RCODE",
+      "udpPayloadSize": "UDP payload size",
+      "options": "Options",
+      "optionCode": "Code",
+      "optionName": "Name",
+      "optionData": "Data",
+      "none": "No EDNS options in the message"
+    },
+    "raw": {
+      "title": "Raw response",
+      "hint": "The full message text returned by the server, useful for field-by-field troubleshooting.",
+      "copy": "Copy raw message",
+      "copied": "Copied",
+      "multiple": "{count} segments (one per hop on the recursion path)",
+      "empty": "No raw message data"
+    },
+    "rcode": {
+      "NOERROR": "NOERROR — Success",
+      "FORMERR": "FORMERR — Format error",
+      "SERVFAIL": "SERVFAIL — Server failure",
+      "NXDOMAIN": "NXDOMAIN — Name does not exist",
+      "NOTIMP": "NOTIMP — Not implemented",
+      "REFUSED": "REFUSED — Query refused",
+      "YXDOMAIN": "YXDOMAIN — Name already exists",
+      "YXRRSET": "YXRRSET — RRset already exists",
+      "NXRRSET": "NXRRSET — RRset does not exist",
+      "NOTAUTH": "NOTAUTH — Not authoritative",
+      "NOTZONE": "NOTZONE — Not within the zone",
+      "BADVERS": "BADVERS — Unsupported EDNS version",
+      "BADKEY": "BADKEY — Invalid TSIG key",
+      "BADTIME": "BADTIME — Invalid signature time",
+      "BADMODE": "BADMODE — Unsupported mode",
+      "BADNAME": "BADNAME — Invalid name",
+      "BADALG": "BADALG — Unsupported algorithm",
+      "BADTRUNC": "BADTRUNC — Truncation error"
+    },
+    "dnssec": {
+      "Secure": "Secure",
+      "Insecure": "Insecure (unsigned zone)",
+      "Bogus": "Bogus",
+      "Indeterminate": "Indeterminate",
+      "NotApplicable": "Not applicable"
+    },
+    "actions": {
+      "addRecord": "Add as zone record",
+      "copyAnswer": "Copy answer",
+      "downloadTxt": "Download as text",
+      "openInZone": "Open in zone",
+      "retry": "Resolve again"
+    }
+  },
+  "history": {
+    "title": "Session query history",
+    "hint": "Stored only in this browser's localStorage; never sent to the server.",
+    "empty": "No queries yet",
+    "clear": "Clear history",
+    "reuse": "Use these parameters",
+    "domain": "Domain",
+    "server": "Server",
+    "type": "Type",
+    "rcode": "Response code",
+    "rtt": "RTT",
+    "time": "Time"
+  },
+  "bulk": {
+    "title": "Bulk resolve",
+    "subtitle": "Run the same query parameters against multiple domains",
+    "domainsLabel": "Domain list",
+    "domainsPlaceholder": "example.com\nexample.org",
+    "domainsHelp": "One domain per line, up to {max}.",
+    "submit": "Start bulk resolve",
+    "running": "Resolving {current} / {total}",
+    "done": "Bulk resolve complete — {ok} succeeded, {fail} failed",
+    "exportCsv": "Export as CSV",
+    "tooMany": "Too many domains. The maximum is {max}.",
+    "columns": {
+      "domain": "Domain",
+      "status": "Result",
+      "answers": "Answers",
+      "rtt": "RTT"
+    }
+  }
+}

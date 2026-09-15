@@ -1,0 +1,119 @@
+{
+  "scopes": {
+    "cache": {
+      "title": "缓存",
+      "subtitle": "解析器缓存中的域名与记录",
+      "description": "查看并清除本机缓存的解析结果。缓存条目会随 TTL 到期自动消失。"
+    },
+    "allowed": {
+      "title": "允许列表",
+      "subtitle": "始终放行查询的域名",
+      "description": "此处的域名即使命中阻止列表也会被放行，适合把误拦截的站点加入白名单。"
+    },
+    "blocked": {
+      "title": "阻止列表",
+      "subtitle": "始终拦截查询的域名",
+      "description": "此处的域名会按服务器设置的阻止方式返回应答，常用于广告与恶意域名拦截。"
+    }
+  },
+  "toolbar": {
+    "searchPlaceholder": "按域名搜索…",
+    "addDomain": "添加域名",
+    "import": "批量导入",
+    "export": "导出列表",
+    "exporting": "导出中…",
+    "flush": "清空",
+    "flushing": "清空中…",
+    "refresh": "刷新",
+    "totalDomains": "共 {count} 个域名",
+    "selected": "已选择 {count} 项",
+    "bulkDelete": "批量删除"
+  },
+  "tree": {
+    "expandAll": "全部展开",
+    "collapseAll": "全部收起",
+    "viewMode": "视图",
+    "viewTree": "层级树",
+    "viewFlat": "平铺列表",
+    "childCount": "{count} 个子域",
+    "records": "记录",
+    "noRecords": "该域名下没有缓存记录",
+    "noMatch": "{domain} 下没有匹配的条目",
+    "recordColumns": {
+      "name": "名称",
+      "type": "类型",
+      "ttl": "TTL",
+      "data": "数据",
+      "details": "详情",
+      "dnssec": "DNSSEC"
+    },
+    "recordFlags": {
+      "disabled": "已禁用",
+      "stale": "已失效",
+      "expiry": "到期",
+      "ecs": "EDNS 客户端子网",
+      "glue": "胶水记录",
+      "validated": "已验证"
+    },
+    "loadChildren": "展开子域",
+    "loadingChildren": "加载中…"
+  },
+  "add": {
+    "title": "添加域名",
+    "domainLabel": "域名",
+    "domainPlaceholder": "ads.example.com",
+    "domainHelp": "支持完整域名；添加父域会同时覆盖其全部子域。",
+    "submit": "添加",
+    "submitting": "添加中…",
+    "success": "已添加 {domain}",
+    "alreadyExists": "{domain} 已在列表中",
+    "invalidDomain": "域名格式不正确"
+  },
+  "import": {
+    "title": "批量导入域名",
+    "subtitle": "每行一个域名，空行与以 # 开头的行会被忽略",
+    "textLabel": "域名列表",
+    "textPlaceholder": "example.com\nads.example.com\n# 这是注释",
+    "fileLabel": "或从文件导入",
+    "fileDrop": "拖放文本文件到此处，或点击选择",
+    "parsed": "已识别 {count} 个域名",
+    "submit": "导入",
+    "submitting": "导入中…",
+    "success": "已导入 {count} 个域名",
+    "empty": "没有可导入的域名"
+  },
+  "delete": {
+    "action": "删除",
+    "confirm": "确定要从{scope}中删除 {domain} 吗？",
+    "bulkConfirm": "确定要删除选中的 {count} 个域名吗？",
+    "success": "已删除 {domain}",
+    "bulkSuccess": "已删除 {count} 个域名",
+    "deleting": "删除中…"
+  },
+  "flush": {
+    "confirmTitle": "清空{scope}",
+    "confirmCache": "确定要清空全部解析器缓存吗？清空后短时间内查询延迟会上升。",
+    "confirmAllowed": "确定要清空允许列表吗？所有白名单域名都会被删除。",
+    "confirmBlocked": "确定要清空阻止列表吗？所有拦截规则都会失效。",
+    "success": "{scope}已清空"
+  },
+  "blocking": {
+    "bannerTitle": "阻止功能当前已关闭",
+    "bannerBody": "服务器设置中的 enableBlocking 未开启，阻止列表不会生效。",
+    "enableNow": "前往设置开启",
+    "temporaryDisable": "临时关闭阻止",
+    "temporaryDisableTitle": "临时关闭阻止",
+    "temporaryDisableHint": "在指定时间内暂停所有拦截，便于临时访问某个站点。",
+    "minutes": "时长（分钟）",
+    "submit": "开始临时关闭",
+    "success": "阻止功能已暂停 {minutes} 分钟"
+  },
+  "empty": {
+    "cache": "解析器缓存当前为空",
+    "cacheHint": "有客户端发起查询后，缓存条目会出现在这里。",
+    "allowed": "允许列表为空",
+    "allowedHint": "添加需要放行的域名，避免被阻止列表误伤。",
+    "blocked": "阻止列表为空",
+    "blockedHint": "手动添加域名，或在设置中配置阻止名单 URL 自动同步。"
+  }
+}

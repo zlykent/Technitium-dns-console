@@ -1,0 +1,196 @@
+{
+  "title": "账户",
+  "subtitle": "个人资料、安全设置与当前登录状态",
+  "tabs": {
+    "profile": "个人资料",
+    "security": "安全",
+    "tokens": "API 令牌",
+    "sessions": "我的会话",
+    "about": "关于"
+  },
+  "profile": {
+    "title": "个人资料",
+    "subtitle": "这些信息由你本人维护，管理员可在「管理」中进一步调整",
+    "displayName": "显示名称",
+    "displayNamePlaceholder": "例如：网络运维组",
+    "username": "用户名",
+    "usernameHint": "用户名不可修改，如需变更请联系管理员",
+    "ssoUser": "单点登录用户",
+    "ssoUserHint": "该账户由 SSO 提供程序管理，密码与 2FA 由外部系统控制",
+    "localUser": "本地账户",
+    "permissions": "我的权限",
+    "permissionsHint": "来自所属用户与用户组的有效权限合并结果",
+    "noPermissions": "尚未获得任何模块权限",
+    "canView": "查看",
+    "canModify": "修改",
+    "canDelete": "删除",
+    "save": "保存资料",
+    "saving": "保存中…",
+    "saved": "个人资料已更新"
+  },
+  "security": {
+    "title": "安全设置",
+    "password": {
+      "title": "修改密码",
+      "subtitle": "修改后当前会话仍然有效，其他会话需要重新登录",
+      "current": "当前密码",
+      "next": "新密码",
+      "confirm": "确认新密码",
+      "submit": "修改密码",
+      "submitting": "提交中…",
+      "success": "密码已修改",
+      "mismatch": "两次输入的新密码不一致",
+      "tooShort": "新密码至少需要 {min} 个字符",
+      "sameAsCurrent": "新密码不能与当前密码相同",
+      "strength": {
+        "label": "密码强度",
+        "weak": "弱",
+        "fair": "一般",
+        "good": "较好",
+        "strong": "强",
+        "hintLength": "至少 {min} 个字符",
+        "hintMix": "混合大小写字母、数字与符号",
+        "hintCommon": "避免使用常见口令"
+      }
+    },
+    "totp": {
+      "title": "两步验证（TOTP）",
+      "subtitle": "使用身份验证器应用生成一次性验证码，为账户增加第二道防线",
+      "statusEnabled": "已启用",
+      "statusDisabled": "未启用",
+      "enable": "启用两步验证",
+      "disable": "停用两步验证",
+      "step1": "第 1 步 · 扫码或手动录入密钥",
+      "step1Hint": "用 Google Authenticator、Microsoft Authenticator、1Password 等应用扫描二维码；若无法扫码，可手动输入下方密钥。",
+      "secret": "密钥",
+      "copySecret": "复制密钥",
+      "copied": "密钥已复制到剪贴板",
+      "qrAlt": "TOTP 二维码",
+      "step2": "第 2 步 · 输入验证码完成绑定",
+      "step2Hint": "输入应用中当前显示的 6 位验证码。",
+      "code": "验证码",
+      "codePlaceholder": "000000",
+      "confirmEnable": "确认启用",
+      "confirming": "验证中…",
+      "enabled": "两步验证已启用",
+      "disableHint": "停用后登录将不再需要验证码，安全性下降。",
+      "disableConfirm": "确认停用两步验证？",
+      "disableCode": "当前验证码",
+      "confirmDisable": "确认停用",
+      "disabled": "两步验证已停用",
+      "cancel": "取消设置",
+      "invalidCode": "验证码不正确，请确认设备时间已同步"
+    }
+  },
+  "tokens": {
+    "title": "API 令牌",
+    "subtitle": "长期有效的访问令牌，适用于脚本与自动化集成",
+    "create": "新建令牌",
+    "creating": "创建中…",
+    "name": "令牌名称",
+    "namePlaceholder": "例如：备份脚本",
+    "nameHint": "用于在列表中区分令牌用途，创建后不可修改",
+    "created": "令牌已创建",
+    "revealOnce": {
+      "title": "请立即保存令牌",
+      "body": "令牌只会显示这一次。关闭后无法再次查看，遗失只能重新创建。",
+      "token": "令牌值",
+      "copy": "复制令牌",
+      "copied": "令牌已复制",
+      "download": "下载为 .txt",
+      "done": "我已保存，关闭"
+    },
+    "table": {
+      "name": "名称",
+      "partial": "令牌指纹",
+      "created": "创建时间",
+      "lastUsed": "最近使用",
+      "never": "从未使用",
+      "actions": "操作",
+      "empty": "还没有创建任何令牌"
+    },
+    "delete": "删除",
+    "deleteConfirm": "确认删除令牌「{name}」？使用该令牌的脚本将立即失效。",
+    "deleted": "令牌已删除",
+    "loginWithToken": {
+      "title": "使用 API 令牌登录",
+      "body": "如果你已有一个长期令牌，可以直接粘贴它登录，无需输入密码。",
+      "placeholder": "粘贴令牌",
+      "submit": "使用令牌登录"
+    }
+  },
+  "sessions": {
+    "title": "我的会话",
+    "subtitle": "当前账户在所有设备上的活动会话，可疑时可立即撤销",
+    "current": "当前会话",
+    "token": "令牌指纹",
+    "type": "类型",
+    "typeName": "令牌名称",
+    "lastSeen": "最近活动",
+    "address": "来源地址",
+    "userAgent": "客户端",
+    "revoke": "撤销",
+    "revokeConfirm": "确认撤销该会话？对应设备将立即退出登录。",
+    "revoked": "会话已撤销",
+    "revokeOthers": "撤销其他所有会话",
+    "revokeOthersConfirm": "确认撤销除当前设备以外的全部会话？",
+    "empty": "没有活动会话",
+    "typeSession": "登录会话",
+    "typeApi": "API 令牌",
+    "typeSingleUse": "一次性令牌"
+  },
+  "about": {
+    "title": "关于",
+    "subtitle": "服务器与本控制台信息",
+    "server": {
+      "title": "DNS 服务器",
+      "version": "版本",
+      "uptime": "运行时长",
+      "domain": "服务器域名",
+      "node": "当前节点",
+      "clusterInitialized": "集群已初始化",
+      "dnssecValidation": "DNSSEC 验证",
+      "checkUpdate": "检查更新",
+      "checking": "检查中…",
+      "updateAvailable": "发现新版本 {version}",
+      "upToDate": "当前已是最新版本",
+      "updateFailed": "检查更新失败",
+      "downloadUpdate": "前往下载",
+      "installedOn": "安装时间",
+      "serverType": "服务类型"
+    },
+    "defaults": {
+      "title": "默认记录设置",
+      "recordTtl": "记录 TTL",
+      "nsRecordTtl": "NS 记录 TTL",
+      "soaRecordTtl": "SOA 记录 TTL",
+      "soaSerialScheme": "SOA 序列号方案",
+      "schemeSerial": "递增序列号",
+      "schemeDate": "日期方案"
+    },
+    "console": {
+      "title": "本控制台",
+      "version": "版本",
+      "builtWith": "技术栈",
+      "description": "为 Technitium DNS Server 重新设计的现代化管理界面，通过服务端代理访问上游 API，令牌保存在 httpOnly Cookie 中，不会暴露给浏览器脚本。",
+      "locale": "界面语言",
+      "theme": "外观主题",
+      "target": "当前服务器"
+    },
+    "credits": {
+      "title": "致谢",
+      "body": "本项目基于 Technitium DNS Server 的公开 HTTP API 构建，与其上游项目相互独立。DNS Server 版权归 Technitium 所有。"
+    },
+    "links": {
+      "title": "相关链接",
+      "upstream": "上游项目",
+      "apiDocs": "API 端点参考",
+      "issues": "问题反馈"
+    }
+  },
+  "logout": {
+    "label": "退出登录",
+    "confirm": "确认退出登录？",
+    "success": "已退出登录"
+  }
+}

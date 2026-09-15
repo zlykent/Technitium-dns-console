@@ -1,0 +1,145 @@
+{
+  "title": "Dashboard",
+  "subtitle": "Real-time overview of query traffic, response breakdown, and top rankings",
+  "range": {
+    "label": "Time range",
+    "lastHour": "Last hour",
+    "lastDay": "Last 24 hours",
+    "lastWeek": "Last 7 days",
+    "lastMonth": "Last 30 days",
+    "lastYear": "Last year",
+    "custom": "Custom",
+    "from": "From",
+    "to": "To",
+    "apply": "Apply range",
+    "invalidRange": "Start time must be before end time",
+    "tooWide": "Custom range cannot exceed {days} days"
+  },
+  "refresh": {
+    "label": "Auto-refresh",
+    "off": "Off",
+    "every10s": "Every 10s",
+    "every30s": "Every 30s",
+    "every1m": "Every 1 min",
+    "every5m": "Every 5 min",
+    "lastUpdated": "Updated {time}",
+    "now": "Refresh now",
+    "refreshing": "Refreshing…"
+  },
+  "cards": {
+    "totalQueries": { "label": "Total queries", "hint": "All DNS queries received in the selected time range" },
+    "totalNoError": { "label": "Successful", "hint": "NOERROR — answer returned normally" },
+    "totalServerFailure": { "label": "Server failure", "hint": "SERVFAIL — resolution error occurred" },
+    "totalNxDomain": { "label": "Not found", "hint": "NXDOMAIN — the name does not exist" },
+    "totalRefused": { "label": "Refused", "hint": "REFUSED — rejected by policy" },
+    "totalAuthoritative": { "label": "Authoritative", "hint": "Answered directly from locally hosted zones" },
+    "totalRecursive": { "label": "Recursive", "hint": "Answered after querying upstream resolvers" },
+    "totalCached": { "label": "Cache hit", "hint": "Served directly from the resolver cache" },
+    "totalBlocked": { "label": "Blocked", "hint": "Matched a block list or blocked zone" },
+    "totalDropped": { "label": "Dropped", "hint": "Silently dropped due to rate limiting or policy" },
+    "totalClients": { "label": "Clients", "hint": "Unique IP addresses that sent queries" },
+    "zones": { "label": "Hosted zones", "hint": "Total zones configured on this server" },
+    "cachedEntries": { "label": "Cached entries", "hint": "Records currently in the resolver cache" },
+    "allowedZones": { "label": "Allowed zones", "hint": "Domains in the allow list" },
+    "blockedZones": { "label": "Blocked zones", "hint": "Domains in the block list" },
+    "allowListZones": { "label": "Allow-list sources", "hint": "Domains from allow-list files" },
+    "blockListZones": { "label": "Block-list sources", "hint": "Domains from block-list files" }
+  },
+  "charts": {
+    "main": {
+      "title": "Query trend",
+      "subtitle": "Queries and responses over time",
+      "queries": "Queries",
+      "noError": "Success",
+      "serverFailure": "Failure",
+      "nxDomain": "Not found",
+      "refused": "Refused",
+      "authoritative": "Authoritative",
+      "recursive": "Recursive",
+      "cached": "Cached",
+      "clients": "Clients",
+      "blocked": "Blocked",
+      "dropped": "Dropped",
+      "empty": "No query data in the selected range",
+      "seriesHint": "Click a legend entry to show or hide that series"
+    },
+    "queryType": {
+      "title": "Query type distribution",
+      "subtitle": "Queries by record type",
+      "empty": "No data"
+    },
+    "queryResponse": {
+      "title": "Response code distribution",
+      "subtitle": "Queries by response code",
+      "empty": "No data"
+    },
+    "protocolType": {
+      "title": "Transport protocol distribution",
+      "subtitle": "UDP / TCP / DoT / DoH / DoQ usage",
+      "empty": "No data"
+    },
+    "legend": "Legend",
+    "percent": "{value}%",
+    "total": "Total",
+    "limit": "Rows"
+  },
+  "tables": {
+    "topClients": {
+      "title": "Top clients",
+      "subtitle": "Source addresses with the most queries",
+      "client": "Client",
+      "hits": "Queries",
+      "rateLimited": "Rate limited",
+      "rateLimitedHint": "This client exceeded the per-minute query limit",
+      "empty": "No client activity in the selected range",
+      "viewAll": "View all"
+    },
+    "topDomains": {
+      "title": "Top domains",
+      "subtitle": "Most queried domain names",
+      "domain": "Domain",
+      "hits": "Queries",
+      "empty": "No query records in the selected range"
+    },
+    "topBlockedDomains": {
+      "title": "Blocked domains",
+      "subtitle": "Domains hitting block policies most often",
+      "domain": "Domain",
+      "hits": "Blocks",
+      "empty": "No domains were blocked in the selected range"
+    }
+  },
+  "server": {
+    "title": "Server status",
+    "version": "Version",
+    "uptime": "Uptime",
+    "domain": "Server domain",
+    "updateAvailable": "Update available: {version}",
+    "upToDate": "Up to date",
+    "checkUpdate": "Check for updates",
+    "checking": "Checking…",
+    "dnssecValidation": "DNSSEC validation",
+    "clusterInitialized": "Cluster initialized",
+    "defaultCredentials": "Default credentials still in use",
+    "defaultCredentialsHint": "Change the administrator password from your profile now.",
+    "ssoEnabled": "SSO enabled",
+    "disabled": "Off",
+    "enabled": "On",
+    "deleteStats": "Delete statistics",
+    "deleteStatsHint": "Removes every stored query statistic on the server. This cannot be undone."
+  },
+  "quickActions": {
+    "title": "Quick actions",
+    "addZone": "Add zone",
+    "addRecord": "Add record",
+    "resolve": "Resolve test",
+    "flushCache": "Flush cache",
+    "viewLogs": "View query logs",
+    "settings": "Server settings"
+  },
+  "empty": {
+    "title": "No query data yet",
+    "body": "Once clients start sending DNS queries to this server, charts will appear here.",
+    "hint": "Try adjusting the time range, or check back later."
+  }
+}

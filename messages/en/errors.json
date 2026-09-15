@@ -1,0 +1,112 @@
+{
+  "codes": {
+    "no_target": {
+      "title": "No DNS server selected",
+      "message": "No target server was chosen and TECHNITIUM_API_URL is not configured.",
+      "action": "Add a server using the switcher in the top bar."
+    },
+    "blocked_target": {
+      "title": "Target rejected by the security policy",
+      "message": "That address is in a dangerous range (cloud metadata, multicast or reserved) or is not on the allowlist.",
+      "action": "Check the server address, or adjust TECHNITIUM_ALLOWED_TARGETS."
+    },
+    "endpoint_not_found": {
+      "title": "Unknown API endpoint",
+      "message": "The requested path is not in the endpoint registry.",
+      "action": "Reload the page. If it persists, the server version may not match."
+    },
+    "method_not_allowed": {
+      "title": "Method not supported",
+      "message": "That endpoint does not accept the HTTP method used.",
+      "action": "Reload the page and try again."
+    },
+    "missing_token": {
+      "title": "Not signed in",
+      "message": "This action needs a valid token, and none is stored on this device.",
+      "action": "Sign in again."
+    },
+    "proxy_error": {
+      "title": "Proxy error",
+      "message": "The local proxy failed while handling the request.",
+      "action": "Check the server-side logs for details."
+    },
+    "invalid_token": {
+      "title": "Session expired",
+      "message": "The token is invalid or has expired.",
+      "action": "Please sign in again."
+    },
+    "two_factor_required": {
+      "title": "Two-factor code required",
+      "message": "This account has two-factor authentication enabled.",
+      "action": "Enter the code from your authenticator app."
+    },
+    "upstream_error": {
+      "title": "The server returned an error",
+      "message": "The DNS server rejected the request.",
+      "action": "Check that the parameters you entered are valid."
+    },
+    "bad_upstream_response": {
+      "title": "Unexpected upstream response",
+      "message": "The DNS server replied with something that could not be parsed.",
+      "action": "The endpoint's response shape may differ from what is expected. Try again."
+    },
+    "upstream_unreachable": {
+      "title": "Cannot reach the DNS server",
+      "message": "The host did not respond, or its name failed to resolve.",
+      "action": "Confirm the server is running and reachable from this machine."
+    },
+    "upstream_timeout": {
+      "title": "Request timed out",
+      "message": "The DNS server did not answer within the time limit.",
+      "action": "Try again later. Exports and backups can take a while."
+    },
+    "unknown": {
+      "title": "Something went wrong",
+      "message": "The request failed without further detail.",
+      "action": "Please try again."
+    }
+  },
+  "http": {
+    "400": "The request was malformed",
+    "401": "Authentication failed",
+    "403": "You are not allowed to perform this action",
+    "404": "The requested resource does not exist",
+    "405": "Method not allowed",
+    "428": "Two-factor authentication required",
+    "500": "Internal server error",
+    "502": "Invalid upstream response",
+    "504": "Upstream timed out"
+  },
+  "ui": {
+    "title": "Something went wrong",
+    "retry": "Retry",
+    "details": "Details",
+    "hideDetails": "Hide details",
+    "stackTrace": "Stack trace",
+    "innerMessage": "Upstream message",
+    "reportHint": "Copy the details below when reporting the problem.",
+    "copyDetails": "Copy error details",
+    "notFoundTitle": "Page not found",
+    "notFoundBody": "The page you requested does not exist.",
+    "notFoundAction": "Back to dashboard",
+    "serverErrorTitle": "Server error",
+    "serverErrorBody": "An unexpected error occurred while rendering this page.",
+    "loadFailed": "Failed to load",
+    "loadFailedHint": "Please try again shortly.",
+    "offline": "Network connection lost",
+    "backOnline": "Back online",
+    "authRequired": "Sign-in required"
+  },
+  "validation": {
+    "formHasErrors": "Some fields need attention",
+    "invalidDomainName": "“{value}” is not a valid domain name",
+    "invalidIpAddress": "“{value}” is not a valid IP address",
+    "invalidCidr": "“{value}” is not a valid CIDR range",
+    "invalidPort": "Port must be between {min} and {max}",
+    "invalidTtl": "TTL must be a positive integer",
+    "invalidMacAddress": "“{value}” is not a valid MAC address",
+    "invalidSerial": "Serial number must be a positive integer",
+    "duplicateEntry": "“{value}” already exists",
+    "tooLong": "Must be at most {max} characters"
+  }
+}

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Technitium DNS Console">
+  <!-- Resolve-Tree mark (transparent variant for README / docs).
+       Same geometry as app/icon.svg; lit path uses the azure->cyan gradient,
+       unlit branches use a muted blue-grey so the mark reads on light and dark. -->
+  <defs>
+    <linearGradient id="tdc-mark" gradientUnits="userSpaceOnUse" x1="14" y1="10" x2="52" y2="55">
+      <stop offset="0" stop-color="#2b78e8"/>
+      <stop offset="1" stop-color="#19c3e0"/>
+    </linearGradient>
+  </defs>
+  <!-- unlit branches -->
+  <g fill="none" stroke="#a9c0e4" stroke-width="4.5" stroke-linecap="round">
+    <path d="M32 24 L14 45"/>
+    <path d="M32 24 L32 45"/>
+  </g>
+  <g fill="#a9c0e4">
+    <circle cx="14" cy="50" r="5"/>
+    <circle cx="32" cy="50" r="5"/>
+  </g>
+  <!-- lit resolution path -->
+  <path d="M32 24 L50 45" fill="none" stroke="url(#tdc-mark)" stroke-width="4.5" stroke-linecap="round"/>
+  <circle cx="50" cy="50" r="5" fill="url(#tdc-mark)"/>
+  <!-- root zone: ring + root dot -->
+  <circle cx="32" cy="17.5" r="6" fill="none" stroke="url(#tdc-mark)" stroke-width="4.5"/>
+  <circle cx="32" cy="17.5" r="2" fill="url(#tdc-mark)"/>
+</svg>

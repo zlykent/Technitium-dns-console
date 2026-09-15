@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Technitium DNS Console">
+  <!-- Resolve-Tree mark (tile variant for favicon / app icon).
+       Inverted DNS namespace tree: root ring on top, branches below.
+       The dot inside the root ring is the root zone ".".
+       The lit branch is one resolution path / the currently selected server.
+       Deliberately distinct from the upstream Technitium mark: no outlined
+       rounded-square frame, no rotational meander; open branching tree instead. -->
+  <defs>
+    <linearGradient id="tdc-tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2b78e8"/>
+      <stop offset="1" stop-color="#19c3e0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#tdc-tile)"/>
+  <!-- unlit branches -->
+  <g fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.5">
+    <path d="M32 24 L14 45"/>
+    <path d="M32 24 L32 45"/>
+  </g>
+  <g fill="#ffffff" opacity="0.5">
+    <circle cx="14" cy="50" r="5"/>
+    <circle cx="32" cy="50" r="5"/>
+  </g>
+  <!-- lit resolution path -->
+  <path d="M32 24 L50 45" fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round"/>
+  <circle cx="50" cy="50" r="5" fill="#ffffff"/>
+  <!-- root zone: ring + root dot -->
+  <circle cx="32" cy="17.5" r="6" fill="none" stroke="#ffffff" stroke-width="4.5"/>
+  <circle cx="32" cy="17.5" r="2" fill="#ffffff"/>
+</svg>

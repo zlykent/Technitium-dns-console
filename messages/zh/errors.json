@@ -1,0 +1,112 @@
+{
+  "codes": {
+    "no_target": {
+      "title": "未指定 DNS 服务器",
+      "message": "尚未选择目标服务器，且服务端未配置 TECHNITIUM_API_URL。",
+      "action": "在顶部的服务器切换器中添加一台服务器。"
+    },
+    "blocked_target": {
+      "title": "目标服务器被安全策略拒绝",
+      "message": "该地址属于危险地址段（云元数据、组播或保留地址），或不在允许的白名单中。",
+      "action": "检查服务器地址，或调整 TECHNITIUM_ALLOWED_TARGETS 配置。"
+    },
+    "endpoint_not_found": {
+      "title": "未知的 API 端点",
+      "message": "请求的路径不在端点注册表中。",
+      "action": "刷新页面重试；若问题持续，可能是版本不匹配。"
+    },
+    "method_not_allowed": {
+      "title": "请求方法不被支持",
+      "message": "该端点不接受当前使用的 HTTP 方法。",
+      "action": "刷新页面重试。"
+    },
+    "missing_token": {
+      "title": "尚未登录",
+      "message": "该操作需要有效的登录令牌，但本机没有保存。",
+      "action": "重新登录。"
+    },
+    "proxy_error": {
+      "title": "代理发生错误",
+      "message": "本地代理在处理请求时失败。",
+      "action": "查看服务端日志以获取详细信息。"
+    },
+    "invalid_token": {
+      "title": "登录已失效",
+      "message": "令牌无效或已过期。",
+      "action": "请重新登录。"
+    },
+    "two_factor_required": {
+      "title": "需要两步验证",
+      "message": "该账户已启用两步验证。",
+      "action": "输入身份验证器应用中的验证码。"
+    },
+    "upstream_error": {
+      "title": "服务器返回错误",
+      "message": "DNS 服务器拒绝了该请求。",
+      "action": "检查填写的参数是否合法。"
+    },
+    "bad_upstream_response": {
+      "title": "上游响应异常",
+      "message": "DNS 服务器返回了无法解析的内容。",
+      "action": "该端点的响应格式可能与预期不同，请重试。"
+    },
+    "upstream_unreachable": {
+      "title": "无法连接到 DNS 服务器",
+      "message": "目标主机无响应或域名解析失败。",
+      "action": "确认服务器已启动，且本机可以访问该网络地址。"
+    },
+    "upstream_timeout": {
+      "title": "请求超时",
+      "message": "DNS 服务器在规定时间内没有返回结果。",
+      "action": "稍后重试；导出与备份等耗时操作可能需要更长时间。"
+    },
+    "unknown": {
+      "title": "发生未知错误",
+      "message": "请求失败，且没有返回更多细节。",
+      "action": "请重试。"
+    }
+  },
+  "http": {
+    "400": "请求参数有误",
+    "401": "身份验证失败",
+    "403": "没有权限执行该操作",
+    "404": "请求的资源不存在",
+    "405": "请求方法不被允许",
+    "428": "需要两步验证",
+    "500": "服务器内部错误",
+    "502": "上游响应无效",
+    "504": "上游响应超时"
+  },
+  "ui": {
+    "title": "出错了",
+    "retry": "重试",
+    "details": "详细信息",
+    "hideDetails": "收起详细信息",
+    "stackTrace": "堆栈跟踪",
+    "innerMessage": "上游消息",
+    "reportHint": "复制以下信息以便排查问题。",
+    "copyDetails": "复制错误详情",
+    "notFoundTitle": "页面不存在",
+    "notFoundBody": "无法找到你请求的页面。",
+    "notFoundAction": "返回仪表盘",
+    "serverErrorTitle": "服务器错误",
+    "serverErrorBody": "渲染该页面时发生了意外错误。",
+    "loadFailed": "加载失败",
+    "loadFailedHint": "请稍后重试。",
+    "offline": "网络连接已断开",
+    "backOnline": "网络已恢复",
+    "authRequired": "需要重新登录"
+  },
+  "validation": {
+    "formHasErrors": "表单中存在需要修正的问题",
+    "invalidDomainName": "“{value}”不是合法的域名",
+    "invalidIpAddress": "“{value}”不是合法的 IP 地址",
+    "invalidCidr": "“{value}”不是合法的 CIDR 网段",
+    "invalidPort": "端口必须在 {min} 到 {max} 之间",
+    "invalidTtl": "TTL 必须是正整数",
+    "invalidMacAddress": "“{value}”不是合法的 MAC 地址",
+    "invalidSerial": "序列号必须为正整数",
+    "duplicateEntry": "“{value}”已存在",
+    "tooLong": "长度不能超过 {max} 个字符"
+  }
+}

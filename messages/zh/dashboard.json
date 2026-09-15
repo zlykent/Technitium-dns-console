@@ -1,0 +1,145 @@
+{
+  "title": "仪表盘",
+  "subtitle": "查询流量、响应构成与热点排名的实时概览",
+  "range": {
+    "label": "时间范围",
+    "lastHour": "最近 1 小时",
+    "lastDay": "最近 24 小时",
+    "lastWeek": "最近 7 天",
+    "lastMonth": "最近 30 天",
+    "lastYear": "最近 1 年",
+    "custom": "自定义",
+    "from": "开始时间",
+    "to": "结束时间",
+    "apply": "应用范围",
+    "invalidRange": "开始时间必须早于结束时间",
+    "tooWide": "自定义范围不能超过 {days} 天"
+  },
+  "refresh": {
+    "label": "自动刷新",
+    "off": "关闭",
+    "every10s": "每 10 秒",
+    "every30s": "每 30 秒",
+    "every1m": "每 1 分钟",
+    "every5m": "每 5 分钟",
+    "lastUpdated": "更新于 {time}",
+    "now": "立即刷新",
+    "refreshing": "刷新中…"
+  },
+  "cards": {
+    "totalQueries": { "label": "查询总数", "hint": "所选时间范围内收到的全部 DNS 查询" },
+    "totalNoError": { "label": "成功响应", "hint": "NOERROR — 正常返回了答案" },
+    "totalServerFailure": { "label": "服务器失败", "hint": "SERVFAIL — 解析过程出错" },
+    "totalNxDomain": { "label": "域名不存在", "hint": "NXDOMAIN — 该名称不存在" },
+    "totalRefused": { "label": "拒绝响应", "hint": "REFUSED — 按策略拒绝服务" },
+    "totalAuthoritative": { "label": "权威应答", "hint": "由本机托管区域直接应答" },
+    "totalRecursive": { "label": "递归解析", "hint": "向上级解析器查询后应答" },
+    "totalCached": { "label": "缓存命中", "hint": "直接来自解析器缓存" },
+    "totalBlocked": { "label": "已阻止", "hint": "命中阻止列表或阻止区域" },
+    "totalDropped": { "label": "已丢弃", "hint": "因限速或策略被静默丢弃" },
+    "totalClients": { "label": "客户端数", "hint": "发起过查询的独立 IP 数量" },
+    "zones": { "label": "托管区域", "hint": "当前服务器上配置的区域总数" },
+    "cachedEntries": { "label": "缓存条目", "hint": "解析器缓存中当前的记录数" },
+    "allowedZones": { "label": "允许区域", "hint": "允许列表中的域名数量" },
+    "blockedZones": { "label": "阻止区域", "hint": "阻止列表中的域名数量" },
+    "allowListZones": { "label": "白名单来源", "hint": "来自允许名单文件的域名数量" },
+    "blockListZones": { "label": "黑名单来源", "hint": "来自阻止名单文件的域名数量" }
+  },
+  "charts": {
+    "main": {
+      "title": "查询趋势",
+      "subtitle": "按时间分布的查询与响应数量",
+      "queries": "查询",
+      "noError": "成功",
+      "serverFailure": "失败",
+      "nxDomain": "不存在",
+      "refused": "拒绝",
+      "authoritative": "权威",
+      "recursive": "递归",
+      "cached": "缓存",
+      "clients": "客户端",
+      "blocked": "阻止",
+      "dropped": "丢弃",
+      "empty": "所选范围内没有查询数据",
+      "seriesHint": "点击图例可显示或隐藏对应的数据系列"
+    },
+    "queryType": {
+      "title": "查询类型分布",
+      "subtitle": "按记录类型统计的查询占比",
+      "empty": "暂无数据"
+    },
+    "queryResponse": {
+      "title": "响应结果分布",
+      "subtitle": "按响应码统计的查询占比",
+      "empty": "暂无数据"
+    },
+    "protocolType": {
+      "title": "传输协议分布",
+      "subtitle": "UDP / TCP / DoT / DoH / DoQ 使用情况",
+      "empty": "暂无数据"
+    },
+    "legend": "图例",
+    "percent": "{value}%",
+    "total": "合计",
+    "limit": "显示条数"
+  },
+  "tables": {
+    "topClients": {
+      "title": "活跃客户端",
+      "subtitle": "查询次数最多的来源地址",
+      "client": "客户端",
+      "hits": "查询次数",
+      "rateLimited": "已限速",
+      "rateLimitedHint": "该客户端触发了每分钟查询数限制",
+      "empty": "所选范围内没有客户端活动",
+      "viewAll": "查看全部"
+    },
+    "topDomains": {
+      "title": "热门域名",
+      "subtitle": "被查询最多的域名",
+      "domain": "域名",
+      "hits": "查询次数",
+      "empty": "所选范围内没有查询记录"
+    },
+    "topBlockedDomains": {
+      "title": "被阻止的域名",
+      "subtitle": "命中阻止策略最多的域名",
+      "domain": "域名",
+      "hits": "阻止次数",
+      "empty": "所选范围内没有域名被阻止"
+    }
+  },
+  "server": {
+    "title": "服务器状态",
+    "version": "版本",
+    "uptime": "运行时长",
+    "domain": "服务器域名",
+    "updateAvailable": "有新版本 {version} 可用",
+    "upToDate": "已是最新版本",
+    "checkUpdate": "检查更新",
+    "checking": "检查中…",
+    "dnssecValidation": "DNSSEC 验证",
+    "clusterInitialized": "集群已初始化",
+    "defaultCredentials": "仍在使用默认凭据",
+    "defaultCredentialsHint": "请立即前往“个人资料”修改管理员密码。",
+    "ssoEnabled": "已启用 SSO",
+    "disabled": "关闭",
+    "enabled": "开启",
+    "deleteStats": "清除统计数据",
+    "deleteStatsHint": "删除服务器上保存的全部查询统计，该操作不可撤销。"
+  },
+  "quickActions": {
+    "title": "快捷操作",
+    "addZone": "新建区域",
+    "addRecord": "添加记录",
+    "resolve": "解析测试",
+    "flushCache": "清空缓存",
+    "viewLogs": "查看查询日志",
+    "settings": "服务器设置"
+  },
+  "empty": {
+    "title": "还没有查询数据",
+    "body": "一旦有客户端向该服务器发起 DNS 查询，统计图表就会出现在这里。",
+    "hint": "可以调整时间范围，或稍后再来查看。"
+  }
+}

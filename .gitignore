@@ -1,0 +1,55 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# next.js
+.next/
+out/
+build/
+next-env.d.ts
+
+# production
+dist/
+
+# testing
+coverage/
+playwright-report/
+test-results/
+blob-report/
+playwright/.cache/
+# Saved by the E2E global setup; contains a live session token for the DNS server.
+tests/e2e/.auth/
+
+# misc
+.DS_Store
+*.pem
+*.tsbuildinfo
+
+# debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+# Also catches the shell-redirected run logs a debugging session leaves behind
+# (`build.log`, `.dev-server.log`, `prod-server.log`), which are pure residue:
+# nothing in the repo reads them, and they can carry live server data.
+*.log
+
+# one-off diagnostic probes and their captured output (`.tmp-probe-*.mjs`,
+# `.tmp-e2e.json`, a curl'd page body). Deliberately a prefix rather than a
+# directory so a probe can sit next to the code it inspects.
+.tmp-*
+
+# env — never commit real credentials
+.env
+.env.local
+.env*.local
+
+# api probe artefacts (contain live tokens / server data)
+.probe/
+
+# ide
+.idea/
+.vscode/
+.history

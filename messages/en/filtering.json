@@ -1,0 +1,119 @@
+{
+  "scopes": {
+    "cache": {
+      "title": "Cache",
+      "subtitle": "Domains and records held in the resolver cache",
+      "description": "Inspect and clear locally cached resolutions. Cache entries expire automatically once their TTL runs out."
+    },
+    "allowed": {
+      "title": "Allowed list",
+      "subtitle": "Domains that are always permitted",
+      "description": "Domains here are let through even if they match a block list. Use this to whitelist sites that were blocked by mistake."
+    },
+    "blocked": {
+      "title": "Blocked list",
+      "subtitle": "Domains that are always blocked",
+      "description": "Domains here are answered using the block mode configured on the server. Commonly used for ad and malware blocking."
+    }
+  },
+  "toolbar": {
+    "searchPlaceholder": "Search by domain…",
+    "addDomain": "Add domain",
+    "import": "Bulk import",
+    "export": "Export list",
+    "exporting": "Exporting…",
+    "flush": "Flush",
+    "flushing": "Flushing…",
+    "refresh": "Refresh",
+    "totalDomains": "{count} domains",
+    "selected": "{count} selected",
+    "bulkDelete": "Delete selected"
+  },
+  "tree": {
+    "expandAll": "Expand all",
+    "collapseAll": "Collapse all",
+    "viewMode": "View",
+    "viewTree": "Hierarchy tree",
+    "viewFlat": "Flat list",
+    "childCount": "{count} subdomains",
+    "records": "Records",
+    "noRecords": "No cached records under this domain",
+    "noMatch": "Nothing matches under {domain}",
+    "recordColumns": {
+      "name": "Name",
+      "type": "Type",
+      "ttl": "TTL",
+      "data": "Data",
+      "details": "Details",
+      "dnssec": "DNSSEC"
+    },
+    "recordFlags": {
+      "disabled": "Disabled",
+      "stale": "Stale",
+      "expiry": "Expires",
+      "ecs": "EDNS client subnet",
+      "glue": "Glue",
+      "validated": "Validated"
+    },
+    "loadChildren": "Expand subdomains",
+    "loadingChildren": "Loading…"
+  },
+  "add": {
+    "title": "Add domain",
+    "domainLabel": "Domain",
+    "domainPlaceholder": "ads.example.com",
+    "domainHelp": "Enter a full domain name. Adding a parent domain also covers all of its subdomains.",
+    "submit": "Add",
+    "submitting": "Adding…",
+    "success": "Added {domain}",
+    "alreadyExists": "{domain} is already in the list",
+    "invalidDomain": "Invalid domain format"
+  },
+  "import": {
+    "title": "Bulk import domains",
+    "subtitle": "One domain per line. Blank lines and lines starting with # are ignored.",
+    "textLabel": "Domain list",
+    "textPlaceholder": "example.com\nads.example.com\n# comment",
+    "fileLabel": "Or import from a file",
+    "fileDrop": "Drop a text file here, or click to select",
+    "parsed": "{count} domains recognized",
+    "submit": "Import",
+    "submitting": "Importing…",
+    "success": "Imported {count} domains",
+    "empty": "No domains to import"
+  },
+  "delete": {
+    "action": "Delete",
+    "confirm": "Delete {domain} from the {scope}?",
+    "bulkConfirm": "Delete the {count} selected domains?",
+    "success": "Deleted {domain}",
+    "bulkSuccess": "Deleted {count} domains",
+    "deleting": "Deleting…"
+  },
+  "flush": {
+    "confirmTitle": "Flush {scope}",
+    "confirmCache": "Flush the entire resolver cache? Query latency will rise briefly afterwards.",
+    "confirmAllowed": "Flush the allowed list? Every whitelisted domain will be removed.",
+    "confirmBlocked": "Flush the blocked list? Every blocking rule will be dropped.",
+    "success": "{scope} flushed"
+  },
+  "blocking": {
+    "bannerTitle": "Blocking is currently disabled",
+    "bannerBody": "enableBlocking is not turned on in server settings, so the blocked list has no effect.",
+    "enableNow": "Enable in settings",
+    "temporaryDisable": "Temporarily disable blocking",
+    "temporaryDisableTitle": "Temporarily disable blocking",
+    "temporaryDisableHint": "Pause all blocking for a set duration to allow temporary access to a site.",
+    "minutes": "Duration (minutes)",
+    "submit": "Start pause",
+    "success": "Blocking paused for {minutes} minutes"
+  },
+  "empty": {
+    "cache": "The resolver cache is currently empty",
+    "cacheHint": "Cache entries will appear here once clients start sending queries.",
+    "allowed": "The allowed list is empty",
+    "allowedHint": "Add domains that should bypass blocking to prevent false positives.",
+    "blocked": "The blocked list is empty",
+    "blockedHint": "Add domains manually, or configure block list URLs in settings for automatic sync."
+  }
+}

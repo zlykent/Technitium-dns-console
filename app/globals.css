@@ -1,0 +1,331 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design language: "Signal" — a dark-first network operations console.
+ *
+ * Deliberately unlike the upstream Bootstrap admin theme:
+ *   - cool blue-black canvas instead of flat white/grey
+ *   - azure->cyan signature accent used sparingly for primary actions
+ *   - hairline borders + layered surfaces instead of heavy drop shadows
+ *   - every DNS datum (name, IP, record data) is set in a mono face
+ *
+ * All tokens are OKLCH so light/dark stay perceptually matched.
+ */
+
+:root {
+  --radius: 0.625rem;
+
+  --background: oklch(0.984 0.003 250);
+  --foreground: oklch(0.21 0.021 258);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.21 0.021 258);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.21 0.021 258);
+
+  --primary: oklch(0.53 0.184 257);
+  --primary-foreground: oklch(0.985 0.005 250);
+
+  --secondary: oklch(0.958 0.007 250);
+  --secondary-foreground: oklch(0.28 0.022 258);
+
+  --muted: oklch(0.958 0.007 250);
+  --muted-foreground: oklch(0.51 0.021 258);
+
+  --accent: oklch(0.935 0.022 250);
+  --accent-foreground: oklch(0.26 0.026 258);
+
+  --destructive: oklch(0.56 0.215 26);
+  --destructive-foreground: oklch(0.985 0.005 25);
+
+  --success: oklch(0.6 0.145 160);
+  --success-foreground: oklch(0.985 0.01 160);
+
+  --warning: oklch(0.72 0.16 78);
+  --warning-foreground: oklch(0.24 0.05 78);
+
+  --info: oklch(0.63 0.13 225);
+  --info-foreground: oklch(0.985 0.008 225);
+
+  --border: oklch(0.905 0.009 250);
+  --input: oklch(0.905 0.009 250);
+  --ring: oklch(0.53 0.184 257);
+
+  /* navigation rail */
+  --sidebar: oklch(0.972 0.005 250);
+  --sidebar-foreground: oklch(0.32 0.022 258);
+  --sidebar-primary: oklch(0.53 0.184 257);
+  --sidebar-primary-foreground: oklch(0.985 0.005 250);
+  --sidebar-accent: oklch(0.925 0.018 250);
+  --sidebar-accent-foreground: oklch(0.26 0.03 258);
+  --sidebar-border: oklch(0.9 0.01 250);
+  --sidebar-ring: oklch(0.53 0.184 257);
+
+  /* chart ramp — cool to warm so adjacent series stay distinguishable */
+  --chart-1: oklch(0.58 0.19 255);
+  --chart-2: oklch(0.68 0.14 195);
+  --chart-3: oklch(0.65 0.16 155);
+  --chart-4: oklch(0.75 0.15 85);
+  --chart-5: oklch(0.62 0.2 20);
+  --chart-6: oklch(0.6 0.17 300);
+
+  --shadow-card: 0 1px 2px oklch(0.21 0.021 258 / 0.05), 0 1px 1px oklch(0.21 0.021 258 / 0.03);
+  --shadow-raised: 0 8px 24px -8px oklch(0.21 0.021 258 / 0.16), 0 2px 6px -2px oklch(0.21 0.021 258 / 0.08);
+}
+
+.dark {
+  --background: oklch(0.155 0.017 262);
+  --foreground: oklch(0.93 0.009 250);
+
+  --card: oklch(0.196 0.019 262);
+  --card-foreground: oklch(0.93 0.009 250);
+
+  --popover: oklch(0.21 0.02 262);
+  --popover-foreground: oklch(0.93 0.009 250);
+
+  --primary: oklch(0.7 0.155 248);
+  --primary-foreground: oklch(0.17 0.03 262);
+
+  --secondary: oklch(0.26 0.021 262);
+  --secondary-foreground: oklch(0.92 0.01 250);
+
+  --muted: oklch(0.255 0.02 262);
+  --muted-foreground: oklch(0.7 0.018 255);
+
+  --accent: oklch(0.29 0.032 255);
+  --accent-foreground: oklch(0.95 0.012 250);
+
+  --destructive: oklch(0.65 0.2 22);
+  --destructive-foreground: oklch(0.16 0.03 22);
+
+  --success: oklch(0.72 0.16 158);
+  --success-foreground: oklch(0.17 0.04 158);
+
+  --warning: oklch(0.8 0.15 82);
+  --warning-foreground: oklch(0.22 0.06 82);
+
+  --info: oklch(0.73 0.12 222);
+  --info-foreground: oklch(0.18 0.03 222);
+
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 13%);
+  --ring: oklch(0.7 0.155 248);
+
+  --sidebar: oklch(0.175 0.019 262);
+  --sidebar-foreground: oklch(0.85 0.012 252);
+  --sidebar-primary: oklch(0.7 0.155 248);
+  --sidebar-primary-foreground: oklch(0.17 0.03 262);
+  --sidebar-accent: oklch(0.27 0.03 258);
+  --sidebar-accent-foreground: oklch(0.96 0.01 250);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.7 0.155 248);
+
+  --chart-1: oklch(0.7 0.16 250);
+  --chart-2: oklch(0.76 0.13 195);
+  --chart-3: oklch(0.75 0.15 155);
+  --chart-4: oklch(0.82 0.14 85);
+  --chart-5: oklch(0.7 0.18 20);
+  --chart-6: oklch(0.7 0.15 300);
+
+  --shadow-card: 0 1px 2px oklch(0 0 0 / 0.3);
+  --shadow-raised: 0 12px 32px -12px oklch(0 0 0 / 0.6), 0 2px 8px -2px oklch(0 0 0 / 0.35);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-raised: var(--shadow-raised);
+
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  --font-mono:
+    ui-monospace, 'SFMono-Regular', 'JetBrains Mono', 'Cascadia Mono', Menlo, Consolas, 'Liberation Mono',
+    monospace;
+}
+
+/*
+ * Login atmosphere motion: sonar ripples emit from the concentric resolver
+ * rings' centre — each ripple scales outward and fades to nothing, staggered
+ * via animation-delay utilities so a wave is always in flight — while the
+ * corner glow drifts slowly. Keyframes live inside @theme so Tailwind emits
+ * them only when the matching animate-* utility is used; ripples carry a base
+ * opacity-0 so the global prefers-reduced-motion block below leaves them
+ * hidden (static rings remain).
+ */
+@theme {
+  --animate-ring-ripple: ring-ripple 6s cubic-bezier(0.25, 0.5, 0.4, 1) infinite;
+  --animate-glow-drift: glow-drift 12s ease-in-out infinite;
+
+  @keyframes ring-ripple {
+    0% {
+      transform: scale(0.2);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+
+  @keyframes glow-drift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(0.625rem, 0.875rem, 0) scale(1.15);
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply scroll-smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  /* DNS data is technical text: always mono, always breakable. */
+  .font-data {
+    @apply font-mono;
+    font-variant-ligatures: none;
+    word-break: break-all;
+  }
+
+  ::selection {
+    @apply bg-primary/25;
+  }
+
+  :focus-visible {
+    @apply outline-ring outline-2 outline-offset-2;
+  }
+
+  /* Slim, unobtrusive scrollbars that respect the theme. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--muted-foreground) 32%, transparent);
+    border: 3px solid transparent;
+    background-clip: content-box;
+    border-radius: 9999px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklab, var(--muted-foreground) 55%, transparent);
+    background-clip: content-box;
+  }
+}
+
+@layer components {
+  /* Signature surface: hairline border + a 1px top highlight, no heavy shadow. */
+  .surface {
+    @apply border-border bg-card;
+    box-shadow:
+      var(--shadow-card),
+      inset 0 1px 0 oklch(1 0 0 / 4%);
+  }
+
+  .surface-raised {
+    @apply border-border bg-card;
+    box-shadow: var(--shadow-raised);
+  }
+
+  /* Live status dot with a soft halo — used across nav, tables and headers. */
+  .status-dot {
+    @apply relative inline-block size-2 shrink-0 rounded-full;
+  }
+  .status-dot::after {
+    content: '';
+    @apply absolute -inset-1 rounded-full opacity-25;
+    background: currentColor;
+    filter: blur(3px);
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+/* Reduced motion: honour the OS preference everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

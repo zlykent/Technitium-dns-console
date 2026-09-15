@@ -1,0 +1,15 @@
+# Both packages ship their native binaries through optionalDependencies
+# (@parcel/watcher-win32-x64, @swc/core-win32-x64-msvc), so their install
+# scripts have nothing to fetch. Declaring `false` is the decision pnpm asks
+# for; leaving the placeholder makes every `pnpm install` exit 1, which in turn
+# breaks `pnpm build` because of the pre-run dependency check.
+allowBuilds:
+  '@parcel/watcher': false
+  '@swc/core': false
+minimumReleaseAgeExclude:
+  - icu-minify@4.14.4
+  - lucide-react@1.45.0
+  - next-intl-swc-plugin-extractor@4.14.4
+  - next-intl@4.14.4
+  - use-intl@4.14.4
+  - zod@4.6.2

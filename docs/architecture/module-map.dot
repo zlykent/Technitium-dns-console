@@ -1,0 +1,212 @@
+// Technitium DNS Console — 模块依赖图（当前态）
+//
+// 证据：仓库内真实的 import 语句（逐个文件读取确认），非目录结构推断。
+// 边类型区分：
+//   实线 = 运行时调用 (runtime-call)
+//   虚线 = 编译期依赖 (compile-time import，含 type-only)
+//   粗线 = 数据访问 (data-access)
+// 已过滤：components/ui/* 内部细节、lib/format、lib/hooks、lib/validation、
+//         单个测试文件（仅在 cluster 注释中标注覆盖关系）。
+// 阅读顺序：自顶向下 = 从浏览器入口到上游 socket。
+// 渲染：Qoder DOT 预览，或 `dot -Tsvg module-map.dot -o module-map.svg`
+
+digraph module_map {
+    rankdir=TB;
+    nodesep=0.35;
+    ranksep=0.6;
+    fontname="Helvetica";
+    node [fontname="Helvetica", fontsize=10, shape=box, style="rounded,filled", fillcolor="#eef2f7", color="#94a3b8"];
+    edge [fontname="Helvetica", fontsize=8, color="#64748b"];
+
+    // ---------------------------------------------------------------- 入口
+    subgraph cluster_entry {
+        label="入口层  app/";
+        style="rounded"; color="#cbd5e1"; fontsize=11;
+        root_layout   [label="app/layout.tsx\n根布局 + locale + 安全头之外的元数据"];
+        providers     [label="app/providers.tsx\nProvider 栈（顺序即约束）"];
+        root_page     [label="app/page.tsx\n'/' 是一个重定向而非页面"];
+        console_pages [label="app/(console)/*/page.tsx\n17 个 Server Component 薄壳\n（12 顶级页 + /zones/[zone] 及其 3 个子路由）"];
+        login_page    [label="app/(auth)/login/page.tsx"];
+        proxy_route   [label="app/api/dns/[...path]/route.ts\nruntime=nodejs, maxDuration=300", fillcolor="#dbeafe"];
+        token_route   [label="app/api/auth/token/route.ts\nPOST / DELETE", fillcolor="#dbeafe"];
+    }
+
+    // ------------------------------------------------------------ 浏览器端
+    subgraph cluster_browser {
+        label="浏览器端  'use client'";
+        style="rounded"; color="#cbd5e1"; fontsize=11;
+        console_shell [label="components/app/console-shell.tsx\n外壳 + 客户端路由守卫"];
+        layout_chrome [label="components/layout/*\nsidebar / topbar / server-switcher / locale-toggle / user-menu"];
+        module_views  [label="components/<module>/*\n12 个业务模块视图与对话框"];
+        ui_kit        [label="components/ui/* + components/app/*\nRadix 基元 / DataTable / PageShell / ConfirmDialog / States"];
+        charts        [label="components/charts/*\nrecharts 封装"];
+        query_prov    [label="components/app/query-provider.tsx\nQueryClient + 全局 401 处理"];
+        session_ctx   [label="lib/auth/session.tsx\n会话与权限上下文"];
+        servers_ctx   [label="lib/servers/provider.tsx\n多服务器上下文"];
+        servers_store [label="lib/servers/store.ts\n纯存储逻辑（无 React）"];
+        nav_model     [label="lib/nav.ts\n声明式导航 + 权限分区"];
+        login_form    [label="components/auth/login-form.tsx\n口令 / TOTP / 令牌 三模式"];
+        sdk_domains   [label="lib/api/domains/*.ts\n13 个类型化域模块"];
+        sdk_client    [label="lib/api/client.ts\napiRequest / apiDownload"];
+        query_keys    [label="lib/api/query-keys.ts\n每个键以 target 打头"];
+    }
+
+    // -------------------------------------------------------------- 同构层
+    subgraph cluster_contract {
+        label="同构契约层（同时编译进浏览器包与 Node 服务端）";
+        style="rounded"; color="#f59e0b"; fontsize=11;
+        registry   [label="lib/api/registry.ts  [GENERATED]\n129 条端点 = 白名单 = 方法表 = 策略 = EndpointId 联合", fillcolor="#fef3c7"];
+        err_contract [label="lib/api/errors.ts\n12 个错误码 → HTTP 状态 + DnsApiError", fillcolor="#fef3c7"];
+        enums_types  [label="lib/api/enums.ts + lib/api/types/*\n由 probe 生成/校订的类型与枚举"];
+        lib_url      [label="lib/url.ts\nparseServerUrl / hostPortOf\n（同构：被 target.ts / client.ts / store.ts 共用）", fillcolor="#fef3c7"];
+    }
+
+    // -------------------------------------------------------------- 服务端
+    subgraph cluster_proxy {
+        label="服务端代理层  lib/proxy/  （仅被两个 Route Handler 导入 — 边界已用 grep 全仓验证）";
+        style="rounded"; color="#dc2626"; fontsize=11;
+        kernel    [label="kernel.ts\n10 步管线 + 单一错误出口", fillcolor="#fee2e2"];
+        target    [label="target.ts\nSSRF 守卫 + DNS 解析 + IP 选择", fillcolor="#fee2e2"];
+        forward   [label="forward.ts\nundici Agent + connect.lookup 固定 IP + 按 kind 超时", fillcolor="#fee2e2"];
+        envelope  [label="envelope.ts\nwrapped/flat 拆封 + 自愈"];
+        perrors   [label="errors.ts\n上游 4 种 status → HTTP 语义"];
+        cookies   [label="cookies.ts\nsha256 派生按 origin 的 Cookie 名"];
+        audit     [label="audit.ts\n窄审计记录 + 可替换 Sink"];
+    }
+
+    subgraph cluster_i18n {
+        label="国际化";
+        style="rounded"; color="#cbd5e1"; fontsize=11;
+        i18n_request [label="lib/i18n/request.ts\nCookie 优先，Accept-Language 兜底"];
+        i18n_messages [label="lib/i18n/messages.ts\n静态 import 全部 32 个 JSON"];
+        msg_files [label="messages/{zh,en}/*.json\n16 命名空间 × 2 语言", shape=folder, fillcolor="#f1f5f9"];
+    }
+
+    // -------------------------------------------------------------- 外部
+    subgraph cluster_external {
+        label="外部 / 运行时资源";
+        style="rounded"; color="#6b7280"; fontsize=11;
+        technitium [label="Technitium DNS Server\nHTTP API v15.4（129 端点，form-encoded）", shape=box3d, fillcolor="#e5e7eb"];
+        node_dns   [label="node:dns/promises + node:net\nlookup / BlockList / isIP", shape=cylinder, fillcolor="#e5e7eb"];
+        undici     [label="undici 8\nserverExternalPackages", shape=cylinder, fillcolor="#e5e7eb"];
+        node_crypto [label="node:crypto\nsha256", shape=cylinder, fillcolor="#e5e7eb"];
+        cookie_jar [label="浏览器 httpOnly Cookie\ntdns_t_<hash12>，7 天", shape=cylinder, fillcolor="#e5e7eb"];
+        local_storage [label="localStorage\ntdns.servers.v1（无凭据）", shape=cylinder, fillcolor="#e5e7eb"];
+        env_vars [label="process.env\nTECHNITIUM_API_URL / _ALLOWED_TARGETS\nPROXY_TIMEOUT_* / PROXY_AUDIT_LOG / PROXY_ALLOW_LOOPBACK", shape=note, fillcolor="#f1f5f9"];
+    }
+
+    // ------------------------------------------------------ 生成与门禁工具链
+    subgraph cluster_tooling {
+        label="生成与质量门禁（构建期，不参与运行时）";
+        style="rounded,dashed"; color="#94a3b8"; fontsize=11;
+        probe_js [label=".probe/console-js/\n官方控制台 JS 快照（12 个文件）", shape=folder, fillcolor="#f8fafc"];
+        gen_registry [label="scripts/probe/gen-registry.mjs"];
+        audit_cov [label="scripts/audit-coverage.mjs\nupstream vs registry vs SDK 三向比对"];
+        audit_params [label="scripts/audit-params.mjs"];
+        i18n_check [label="scripts/check-i18n.mjs + check-i18n-usage.mjs"];
+        api_docs [label="docs/api-endpoints.md  [GENERATED]", shape=note, fillcolor="#f8fafc"];
+    }
+
+    // ================= 边：入口 =================
+    root_layout -> providers [label="组合"];
+    root_layout -> i18n_request [label="resolveLocale()", style=dashed];
+    providers -> query_prov [label="挂载"];
+    providers -> servers_ctx [label="挂载（必须先于 Session）"];
+    providers -> session_ctx [label="挂载"];
+    root_page -> session_ctx [label="ready/permissions"];
+    root_page -> nav_model [label="landingRoute()"];
+    console_pages -> console_shell [label="(console)/layout.tsx 仅挂载外壳"];
+    console_pages -> module_views [label="每页只挂载对应视图"];
+    login_page -> login_form [label="挂载"];
+
+    // ================= 边：守卫与外壳 =================
+    console_shell -> session_ctx [label="ready / isAuthenticated / permissions"];
+    console_shell -> nav_model [label="requiredSectionFor(pathname)"];
+    console_shell -> layout_chrome [label="Sidebar + Topbar"];
+    layout_chrome -> servers_ctx [label="server-switcher 读写档案"];
+    layout_chrome -> nav_model [label="visibleSections()"];
+    layout_chrome -> session_ctx [label="user-menu"];
+    module_views -> ui_kit [label="组合"];
+    module_views -> charts [label="dashboard"];
+    module_views -> query_prov [label="useQuery / useMutation"];
+    module_views -> sdk_domains [label="runtime-call"];
+    module_views -> query_keys [label="键工厂", style=dashed];
+    module_views -> session_ctx [label="useCan('<Section>')"];
+
+    // ================= 边：查询与状态 =================
+    query_prov -> err_contract [label="isAuthError()", style=dashed];
+    query_prov -> query_keys [label="DEFAULT_STALE_TIME / GC_TIME", style=dashed];
+    query_prov -> session_ctx [label="401 时 setQueryData(session,null)", constraint=false];
+    session_ctx -> sdk_domains [label="getSession() / logout()"];
+    session_ctx -> query_keys [style=dashed];
+    session_ctx -> servers_ctx [label="useTargetKey() 作为键前缀"];
+    session_ctx -> err_contract [style=dashed];
+    servers_ctx -> sdk_client [label="setActiveTarget()"];
+    servers_ctx -> servers_store [label="纯函数校验/规范化"];
+    servers_ctx -> local_storage [label="持久化", penwidth=2];
+    servers_store -> lib_url [label="parseServerUrl()", style=dashed];
+    login_form -> sdk_domains [label="login()"];
+    login_form -> servers_ctx [label="selectByUrl() 同步设定目标"];
+    login_form -> token_route [label="POST /api/auth/token\n（绕过 SDK 客户端）"];
+    login_form -> nav_model [label="landingRoute()"];
+
+    // ================= 边：SDK =================
+    sdk_domains -> sdk_client [label="apiRequest / apiDownload"];
+    sdk_domains -> enums_types [style=dashed];
+    sdk_client -> registry [label="ENDPOINTS 查表校验方法", style=dashed];
+    sdk_client -> err_contract [label="构造/解析 DnsApiError", style=dashed];
+    sdk_client -> proxy_route [label="fetch('/api/dns/<endpoint>')\nsame-origin HTTP"];
+    sdk_client -> lib_url [style=dashed];
+    query_keys -> registry [label="ApiDomain 类型", style=dashed];
+    nav_model -> enums_types [label="PERMISSION_SECTIONS / PermissionMap", style=dashed];
+
+    // ================= 边：代理管线（运行时顺序） =================
+    proxy_route -> kernel [label="handleProxy(request, path)"];
+    token_route -> target [label="resolveTarget()"];
+    token_route -> forward [label="以粘贴令牌验证 user/session/get"];
+    token_route -> cookies [label="验证通过才写 Cookie"];
+    token_route -> audit [label="writeAudit()"];
+    token_route -> kernel [label="TARGET_HEADER 常量", style=dashed];
+    token_route -> err_contract [style=dashed];
+
+    kernel -> registry [label="isKnownEndpoint / getEndpoint\n白名单+方法+auth+envelope+kind"];
+    kernel -> target [label="1 解析目标\n2 SSRF 校验"];
+    kernel -> cookies [label="4 读取该 origin 的令牌"];
+    kernel -> forward [label="6 转发 + 注入 Bearer\n7 按 kind 超时"];
+    kernel -> perrors [label="8 translateUpstream()"];
+    kernel -> envelope [label="9 unwrapEnvelope()"];
+    kernel -> audit [label="10 writeAudit()"];
+    kernel -> err_contract [label="抛出 DnsApiError", style=dashed];
+
+    target -> node_dns [label="lookup(all,verbatim)\nBlockList 校验", penwidth=2];
+    target -> lib_url [style=dashed];
+    target -> err_contract [label="no_target / blocked_target", style=dashed];
+    target -> env_vars [label="readProxyConfig()", style=dashed];
+    forward -> undici [label="Agent + connect.lookup\n固定已校验 IP", penwidth=2];
+    forward -> technitium [label="HTTP GET/POST\nform-encoded", penwidth=2];
+    forward -> target [label="ProxyTarget 类型（消费 pinnedAddress）", style=dashed];
+    forward -> registry [label="ApiKind → 超时", style=dashed];
+    forward -> env_vars [label="PROXY_TIMEOUT_*", style=dashed];
+    perrors -> envelope [label="status 常量 + readUpstreamMessage", style=dashed];
+    perrors -> err_contract [style=dashed];
+    envelope -> registry [label="EndpointId / ApiEnvelope", style=dashed];
+    audit -> registry [label="ApiDomain / EndpointId", style=dashed];
+    audit -> env_vars [label="PROXY_AUDIT_LOG", style=dashed];
+    cookies -> node_crypto [label="sha256(prefix+origin)", penwidth=2];
+    cookies -> cookie_jar [label="Set-Cookie / Cookie 头\nhttpOnly", penwidth=2];
+    kernel -> cookie_jar [label="invalid-token 时删除", penwidth=2, constraint=false];
+
+    // ================= 边：i18n =================
+    i18n_request -> i18n_messages [label="loadMessages(locale)"];
+    i18n_messages -> msg_files [label="32 个静态 import", penwidth=2];
+    i18n_check -> msg_files [label="键树对齐 + 使用率", style=dashed];
+
+    // ================= 边：生成链 =================
+    probe_js -> gen_registry [label="正则收割 api/<path> 字面量", style=dashed];
+    gen_registry -> registry [label="生成（文件头禁止手改）", style=dashed];
+    gen_registry -> api_docs [label="生成", style=dashed];
+    probe_js -> audit_cov [label="upstream 集合", style=dashed];
+    audit_cov -> registry [label="registry 集合", style=dashed];
+    audit_cov -> sdk_domains [label="sdk 集合（实际调用的端点）", style=dashed];
+    audit_params -> api_docs [style=dashed];
+}

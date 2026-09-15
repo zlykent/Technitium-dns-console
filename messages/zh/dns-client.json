@@ -1,0 +1,170 @@
+{
+  "title": "DNS 客户端",
+  "subtitle": "让服务器代替你发起一次解析，并查看完整的报文细节",
+  "form": {
+    "server": "名称服务器",
+    "serverPlaceholder": "this-server 或 8.8.8.8",
+    "serverHelp": "填写 this-server 表示由本机递归解析；也可指定任意 IP、host:port 或 https:// DoH 地址。",
+    "presets": "常用解析器",
+    "groupThisServer": "本服务器",
+    "groupPublic": "公共解析器",
+    "groupDoh": "DoH 解析器",
+    "groupCustom": "自定义",
+    "customServer": "自定义名称服务器",
+    "domain": "查询域名",
+    "domainPlaceholder": "example.com",
+    "type": "记录类型",
+    "protocol": "传输协议",
+    "protocolHelp": "UDP 最通用；DoH/DoT/DoQ 需要目标服务器支持对应端口。",
+    "dnssec": "请求 DNSSEC 验证",
+    "dnssecHelp": "在报文中置位 AD 请求，服务器会返回签名与验证状态。",
+    "eDnsClientSubnet": "EDNS Client Subnet",
+    "eDnsClientSubnetPlaceholder": "1.2.3.0/24",
+    "eDnsClientSubnetHelp": "可选。向上游透露的客户端网段，用于获得更贴近的 CDN 应答。",
+    "import": "把应答写入区域",
+    "importHelp": "将解析结果作为记录写入服务器上的区域。",
+    "importWarning": "记录会写入与之匹配的现有主区域或条件转发区域；若没有匹配的区域，服务器会为该域名新建一个主区域。",
+    "submit": "解析",
+    "submitting": "解析中…",
+    "reset": "清空",
+    "invalidDomain": "请输入要查询的域名",
+    "invalidServer": "请输入名称服务器地址"
+  },
+  "importConfirm": {
+    "title": "添加为区域记录",
+    "body": "本次应答中的全部记录都会写入服务器。若没有匹配的现有区域，服务器会为“{domain}”新建一个主区域，该操作无法撤销。",
+    "action": "写入区域",
+    "submitting": "写入中…"
+  },
+  "result": {
+    "title": "解析结果",
+    "empty": "填写查询条件后点击“解析”",
+    "emptyHint": "结果会显示完整的 DNS 报文，包括问题段、应答段与 EDNS 选项。",
+    "summary": {
+      "rcode": "响应码",
+      "server": "应答服务器",
+      "protocol": "协议",
+      "datagramSize": "报文大小",
+      "rtt": "往返耗时",
+      "identifier": "报文 ID",
+      "authoritative": "权威应答",
+      "truncated": "已截断",
+      "recursionDesired": "期望递归",
+      "recursionAvailable": "支持递归",
+      "authenticData": "数据已验证",
+      "checkingDisabled": "禁用校验",
+      "opcode": "操作码",
+      "counts": "计数"
+    },
+    "counts": {
+      "question": "问题",
+      "answer": "应答",
+      "authority": "权威",
+      "additional": "附加"
+    },
+    "sections": {
+      "question": "问题段",
+      "answer": "应答段",
+      "authority": "权威段",
+      "additional": "附加段",
+      "edns": "EDNS",
+      "raw": "原始报文",
+      "metadata": "元数据"
+    },
+    "columns": {
+      "name": "名称",
+      "type": "类型",
+      "class": "类",
+      "ttl": "TTL",
+      "rdlength": "数据长度",
+      "rdata": "记录数据",
+      "dnssec": "DNSSEC"
+    },
+    "noAnswer": "服务器没有返回任何应答记录",
+    "noAnswerHint": "响应码为 {rcode}，可能是名称不存在或被策略拦截。",
+    "edns": {
+      "version": "版本",
+      "flags": "标志",
+      "extendedRcode": "扩展响应码",
+      "udpPayloadSize": "UDP 载荷大小",
+      "options": "选项",
+      "optionCode": "编号",
+      "optionName": "名称",
+      "optionData": "数据",
+      "none": "报文中没有 EDNS 选项"
+    },
+    "raw": {
+      "title": "原始应答",
+      "hint": "服务器返回的完整报文文本，便于逐字段排查。",
+      "copy": "复制原始报文",
+      "copied": "已复制",
+      "multiple": "共 {count} 段（递归路径上的每一跳）",
+      "empty": "没有原始报文数据"
+    },
+    "rcode": {
+      "NOERROR": "NOERROR — 成功",
+      "FORMERR": "FORMERR — 报文格式错误",
+      "SERVFAIL": "SERVFAIL — 服务器失败",
+      "NXDOMAIN": "NXDOMAIN — 域名不存在",
+      "NOTIMP": "NOTIMP — 功能未实现",
+      "REFUSED": "REFUSED — 拒绝服务",
+      "YXDOMAIN": "YXDOMAIN — 名称已存在",
+      "YXRRSET": "YXRRSET — 记录集已存在",
+      "NXRRSET": "NXRRSET — 记录集不存在",
+      "NOTAUTH": "NOTAUTH — 非权威服务器",
+      "NOTZONE": "NOTZONE — 不在区域内",
+      "BADVERS": "BADVERS — EDNS 版本不支持",
+      "BADKEY": "BADKEY — TSIG 密钥无效",
+      "BADTIME": "BADTIME — 签名时间无效",
+      "BADMODE": "BADMODE — 不支持的模式",
+      "BADNAME": "BADNAME — 名称无效",
+      "BADALG": "BADALG — 算法不支持",
+      "BADTRUNC": "BADTRUNC — 截断错误"
+    },
+    "dnssec": {
+      "Secure": "已验证",
+      "Insecure": "无签名（不安全区域）",
+      "Bogus": "验证失败",
+      "Indeterminate": "无法判定",
+      "NotApplicable": "不适用"
+    },
+    "actions": {
+      "addRecord": "添加为区域记录",
+      "copyAnswer": "复制应答",
+      "downloadTxt": "下载为文本",
+      "openInZone": "在区域中查看",
+      "retry": "重新解析"
+    }
+  },
+  "history": {
+    "title": "本次会话的查询历史",
+    "hint": "仅保存在本浏览器的 localStorage 中，不会上传到服务器。",
+    "empty": "还没有查询记录",
+    "clear": "清空历史",
+    "reuse": "使用此条件",
+    "domain": "域名",
+    "server": "服务器",
+    "type": "类型",
+    "rcode": "响应码",
+    "rtt": "耗时",
+    "time": "时间"
+  },
+  "bulk": {
+    "title": "批量解析",
+    "subtitle": "对多个域名重复执行同一组查询条件",
+    "domainsLabel": "域名列表",
+    "domainsPlaceholder": "example.com\nexample.org",
+    "domainsHelp": "每行一个域名，最多 {max} 个。",
+    "submit": "开始批量解析",
+    "running": "正在解析 {current} / {total}",
+    "done": "批量解析完成，成功 {ok} 个，失败 {fail} 个",
+    "exportCsv": "导出为 CSV",
+    "tooMany": "域名数量超过上限 {max}",
+    "columns": {
+      "domain": "域名",
+      "status": "结果",
+      "answers": "应答",
+      "rtt": "耗时"
+    }
+  }
+}
