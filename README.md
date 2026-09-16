@@ -4,7 +4,7 @@
 
 # Technitium DNS Console
 
-**面向 Technitium DNS Server 的现代化双语（中 / 英）Web 管理控制台**
+**面向 Technitium DNS Server 的现代化 Web 管理控制台**
 
 [中文](./README.md) | [English](./README.en.md)
 
@@ -18,7 +18,6 @@
 
 相较于官方自带的 Web 界面，本控制台专注于：
 
-- **中英双语**：所有界面文案通过 `next-intl` 管理，中 / 英键树完全对齐，可运行时切换。
 - **现代化的操作体验**：基于 Radix UI + Tailwind CSS v4 构建的高密度运维界面，支持浅色 / 深色主题。
 - **纵深防御的代理层**：所有请求经由一个 catch-all 代理转发，内置 SSRF 防护、IP 固定（防 DNS 重绑定）、httpOnly 令牌 Cookie、端点白名单与审计日志。
 - **多服务器管理**：可在浏览器端保存多个 Technitium 服务器配置并随时切换，令牌按来源隔离存储。

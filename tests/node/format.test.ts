@@ -37,7 +37,7 @@ import type { Locale } from '@/lib/i18n/config'
  * the other way round), which is exactly how a "the timestamps are all off by
  * eight hours" bug reaches production.
  *
- * The project is bilingual, so both locales are asserted everywhere even where
+ * The project ships zh and en locales, so both are asserted everywhere even where
  * the output is identical: `formatDateTime` uses an explicit `yyyy-MM-dd`
  * pattern and therefore *must* agree across locales, while `formatRelative` and
  * `formatCompact` must *not*. Pinning both directions keeps a locale from being

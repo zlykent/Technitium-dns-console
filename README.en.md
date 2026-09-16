@@ -4,7 +4,7 @@
 
 # Technitium DNS Console
 
-**A modern bilingual (zh / en) web console for Technitium DNS Server**
+**A modern web console for Technitium DNS Server**
 
 [中文](./README.md) | [English](./README.en.md)
 
@@ -18,7 +18,6 @@ This project is an independently developed **web console** for managing [Technit
 
 Compared with the bundled web UI, this console focuses on:
 
-- **Bilingual (zh / en)**: every user-facing string is managed through `next-intl`; the Chinese and English key trees are kept in exact parity and can be switched at runtime.
 - **A modern operator experience**: a dense, ops-oriented UI built on Radix UI + Tailwind CSS v4, with light / dark themes.
 - **A defence-in-depth proxy**: all requests flow through a single catch-all proxy with SSRF protection, IP pinning (anti DNS-rebinding), httpOnly token cookies, an endpoint allowlist, and audit logging.
 - **Multi-server management**: save several Technitium server profiles in the browser and switch between them; tokens are stored per origin.

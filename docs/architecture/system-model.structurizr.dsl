@@ -2,7 +2,7 @@ workspace "Technitium DNS Console" "当前态 C4 架构模型。证据来源见�
     !identifiers hierarchical
 
     model {
-        operator = person "DNS 运维管理员" "通过浏览器使用中/英双语控制台，管理一台或多台 Technitium DNS Server 的区域、记录、DNSSEC、过滤、日志、DHCP、应用与权限。"
+        operator = person "DNS 运维管理员" "通过浏览器使用控制台，管理一台或多台 Technitium DNS Server 的区域、记录、DNSSEC、过滤、日志、DHCP、应用与权限。"
 
         technitium = softwareSystem "Technitium DNS Server" "上游 DNS 服务器（本仓库对齐 v15.4）。暴露 129 个 form-encoded HTTP 管理端点，几乎全部返回 HTTP 200，真实结果由响应体的 status 字段表达。" {
             tags "External"
@@ -36,7 +36,7 @@ workspace "Technitium DNS Console" "当前态 C4 架构模型。证据来源见�
                 cookieMod = component "Cookie 编解码" "手写 Set-Cookie 序列化（流式响应中无法使用 Next 的 cookies()）。Cookie 名由 sha256(前缀+规范化 origin) 前 12 位派生，因此代理无状态、每台服务器一枚令牌、切换不互相覆盖。" "lib/proxy/cookies.ts"
                 auditMod = component "审计日志" "窄记录：ts / endpoint / domain / method / target(仅 origin) / httpStatus / durationMs / outcome / code。刻意不含请求体、查询值与令牌——连可能承载机密的参数名都不枚举。Sink 为接口，可替换为持久化实现；审计失败绝不影响被代理的请求。" "lib/proxy/audit.ts"
                 i18nRequest = component "语言协商" "无路径前缀方案：Cookie 为真相源，Accept-Language 仅在首次访问时打破平局，结果写入 <html lang>。切换语言改写 Cookie 并刷新 router，URL 保持稳定可分享。" "lib/i18n/request.ts"
-                messagesBundle = component "双语文案包" "16 个命名空间 × zh/en，全部静态 import，使拼写错误在构建期失败而不是运行期渲染出裸键。zh 与 en 键树必须完全一致，由 pnpm i18n:check 强制。" "lib/i18n/messages.ts + messages/{zh,en}/*.json"
+                messagesBundle = component "i18n 文案包" "16 个命名空间 × zh/en，全部静态 import，使拼写错误在构建期失败而不是运行期渲染出裸键。zh 与 en 键树必须完全一致，由 pnpm i18n:check 强制。" "lib/i18n/messages.ts + messages/{zh,en}/*.json"
             }
 
             sharedContract = container "共享 API 契约（同构）" "被同时编译进浏览器包与 Node 服务端的两个模块。这是本架构最关键的一处约束：代理白名单与 SDK 类型读的是同一个对象，因此二者不可能漂移。" "TypeScript (isomorphic, 无 Node/BOM 依赖)" {
@@ -58,7 +58,7 @@ workspace "Technitium DNS Console" "当前态 C4 架构模型。证据来源见�
         console -> technitium "转发 129 个管理端点" "HTTP + form-encoded / JSON 信封"
 
         # ---- L2 容器
-        operator -> console.browserApp "使用中/英双语控制台界面" "HTTPS"
+        operator -> console.browserApp "使用控制台界面" "HTTPS"
         console.browserApp -> console.nextServer "所有上游调用经由单一 catch-all 代理；浏览器从不直连 DNS 服务器（上游不发 CORS 头，也无法直连）" "same-origin fetch + X-Dns-Target 头"
         console.nextServer -> technitium "原样转发查询串与请求体，注入 Authorization: Bearer" "undici / HTTP"
         console.nextServer -> console.cookieStore "登录成功写入令牌；invalid-token 时删除；登出时删除" "Set-Cookie (httpOnly)"
