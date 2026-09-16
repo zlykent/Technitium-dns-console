@@ -1,7 +1,7 @@
 {
   "name": "Technitium-dns-console",
   "version": "1.0.0",
-  "private": true,
+  "license": "MIT",
   "description": "Modern bilingual (zh/en) web console for Technitium DNS Server",
   "scripts": {
     "dev": "next dev -p 5390",

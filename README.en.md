@@ -206,4 +206,4 @@ The Technitium API surface (endpoints, methods, auth, envelope shapes, parameter
 
 ## Disclaimer
 
-This project is an independent community implementation and is **not affiliated with or endorsed by Technitium Software**. Technitium DNS Server and its trademarks are the property of Technitium Software. Please assess security and compliance for your own use; the repository does not currently ship an open-source licence (`package.json` is marked `private`).
+This project is an independent community implementation and is **not affiliated with or endorsed by Technitium Software**. Technitium DNS Server and its trademarks are the property of Technitium Software. Please assess security and compliance for your own use. The project is released under the [MIT License](./LICENSE); 

@@ -206,4 +206,4 @@ Technitium 的 API 面（端点、方法、鉴权、信封形状、参数）记�
 
 ## 声明
 
-本项目为社区独立实现，**未隶属于 Technitium Software，也未获其背书**。Technitium DNS Server 及其商标归 Technitium Software 所有。使用本项目前请自行评估安全性与合规性；当前仓库尚未附带开源许可证（`package.json` 标记为 `private`）。
+本项目为社区独立实现，**未隶属于 Technitium Software，也未获其背书**。Technitium DNS Server 及其商标归 Technitium Software 所有。使用本项目前请自行评估安全性与合规性。本项目以 [MIT 许可证](./LICENSE) 发布；
