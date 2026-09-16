@@ -6,7 +6,7 @@ import { Check, Languages } from 'lucide-react'
 import * as React from 'react'
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { LOCALE_COOKIE, LOCALE_LABELS, locales, type Locale } from '@/lib/i18n/config'
+import { LOCALE_LABELS, locales, writeLocaleCookie, type Locale } from '@/lib/i18n/config'
 
 /**
  * Language switcher for a prefix-less next-intl setup.
@@ -18,8 +18,6 @@ import { LOCALE_COOKIE, LOCALE_LABELS, locales, type Locale } from '@/lib/i18n/c
  * saves a round trip.
  */
 
-const COOKIE_MAX_AGE = 60 * 60 * 24 * 365
-
 export function LocaleToggle() {
   const t = useTranslations('common')
   const locale = useLocale() as Locale
@@ -30,7 +28,7 @@ export function LocaleToggle() {
     (next: Locale) => {
       if (next === locale) return
       setPending(next)
-      document.cookie = `${LOCALE_COOKIE}=${next}; Path=/; Max-Age=${COOKIE_MAX_AGE}; SameSite=Lax`
+      writeLocaleCookie(next)
       // `document.documentElement.lang` is updated eagerly so screen readers do
       // not announce the new content in the old language while the RSC payload
       // is in flight.

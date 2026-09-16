@@ -241,12 +241,20 @@ export function SessionsPanel() {
   )
 
   return (
-    <>
-      <Section title={t('sessions.title')} description={t('sessions.subtitle')} contentClassName="p-3">
+    // Flex column so the Section — and the scrollable table inside it — fills
+    // the tab's leftover height.
+    <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+      <Section
+        title={t('sessions.title')}
+        description={t('sessions.subtitle')}
+        className="flex min-h-0 flex-1 flex-col"
+        contentClassName="flex min-h-0 flex-1 flex-col p-3"
+      >
         <DataTable<SessionEntry>
           label={t('sessions.title')}
           columns={columns}
           data={filtered}
+          scrollable
           getRowId={(row) => row.partialToken}
           loading={sessions.isPending}
           error={sessions.error}
@@ -336,7 +344,7 @@ export function SessionsPanel() {
         onOpenChange={(open) => !open && setTokenUser(null)}
         username={tokenUser}
       />
-    </>
+    </div>
   )
 }
 

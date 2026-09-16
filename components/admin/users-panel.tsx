@@ -275,11 +275,14 @@ export function UsersPanel() {
   )
 
   return (
-    <>
+    // Flex column so the scrollable table fills the tab's leftover height;
+    // the detail pane keeps its natural size underneath.
+    <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-4">
       <DataTable<UserSummary>
         label={t('users.title')}
         columns={columns}
         data={filtered}
+        scrollable
         getRowId={(row) => row.username}
         loading={users.isPending}
         error={users.error}
@@ -323,6 +326,7 @@ export function UsersPanel() {
 
       {selected && (
         <Section
+          className="shrink-0"
           title={t('users.details.title', { name: selected })}
           actions={
             <Button variant="outline" size="xs" onClick={() => setSelected(null)}>
@@ -475,7 +479,7 @@ export function UsersPanel() {
       >
         <p className="text-sm text-muted-foreground">{t('sessions.deleteAllPreservesCurrent')}</p>
       </ConfirmDialog>
-    </>
+    </div>
   )
 }
 

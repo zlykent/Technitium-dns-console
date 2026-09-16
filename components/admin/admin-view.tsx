@@ -57,8 +57,14 @@ export function AdminView() {
   }
 
   return (
-    <PageShell>
-      <Tabs value={tab} onValueChange={(value) => setTab(value as AdminTab)}>
+    <PageShell className="h-full">
+      <Tabs
+        value={tab}
+        onValueChange={(value) => setTab(value as AdminTab)}
+        // Flex chain down to the panels so their scrollable tables can fill
+        // the leftover viewport height (see `TabsContent` in ui/tabs).
+        className="flex min-h-0 flex-1 flex-col"
+      >
         <TabsList>
           <TabsTrigger value="users">
             <Users className="size-4" aria-hidden />
@@ -86,22 +92,22 @@ export function AdminView() {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="users">
+        <TabsContent value="users" className="flex min-h-0 flex-col">
           <UsersPanel />
         </TabsContent>
-        <TabsContent value="groups">
+        <TabsContent value="groups" className="flex min-h-0 flex-col">
           <GroupsPanel />
         </TabsContent>
-        <TabsContent value="permissions">
+        <TabsContent value="permissions" className="min-h-0 overflow-y-auto">
           <PermissionsPanel />
         </TabsContent>
-        <TabsContent value="sessions">
+        <TabsContent value="sessions" className="flex min-h-0 flex-col">
           <SessionsPanel />
         </TabsContent>
-        <TabsContent value="sso">
+        <TabsContent value="sso" className="min-h-0 overflow-y-auto">
           <SsoPanel />
         </TabsContent>
-        <TabsContent value="cluster">
+        <TabsContent value="cluster" className="min-h-0 overflow-y-auto">
           <ClusterPanel />
         </TabsContent>
       </Tabs>

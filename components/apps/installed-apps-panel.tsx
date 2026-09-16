@@ -237,7 +237,9 @@ export function InstalledAppsPanel({
   )
 
   return (
-    <div className="flex flex-col gap-4">
+    // `min-h-0 flex-1` joins the tab's flex chain so the scrollable table
+    // below fills the leftover viewport height.
+    <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-4">
       <h2 className="sr-only">{t('installed.title')}</h2>
 
       <div className="flex flex-wrap items-center gap-2">
@@ -272,6 +274,7 @@ export function InstalledAppsPanel({
       <DataTable
         columns={columns}
         data={apps}
+        scrollable
         getRowId={(row) => row.name}
         loading={loading}
         error={error}

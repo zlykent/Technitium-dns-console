@@ -162,11 +162,14 @@ export function GroupsPanel() {
   const members = detail.data?.members ?? []
 
   return (
-    <>
+    // Flex column so the scrollable table fills the tab's leftover height;
+    // the members pane keeps its natural size underneath.
+    <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-4">
       <DataTable<GroupSummary>
         label={t('groups.title')}
         columns={columns}
         data={filtered}
+        scrollable
         getRowId={(row) => row.name}
         loading={groups.isPending}
         error={groups.error}
@@ -197,6 +200,7 @@ export function GroupsPanel() {
 
       {inspected && (
         <Section
+          className="shrink-0"
           title={t('groups.membersTitle', { name: inspected })}
           actions={
             <Button variant="outline" size="xs" onClick={() => setInspected(null)}>
@@ -244,7 +248,7 @@ export function GroupsPanel() {
         pending={remove.isPending}
         error={remove.error ?? undefined}
       />
-    </>
+    </div>
   )
 }
 

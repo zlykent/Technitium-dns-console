@@ -65,8 +65,14 @@ export function AppsView() {
   const installedApps = installed.data?.apps ?? []
 
   return (
-    <PageShell>
-      <Tabs value={tab} onValueChange={(value) => setTab(value as AppsTab)}>
+    <PageShell className="h-full">
+      <Tabs
+        value={tab}
+        onValueChange={(value) => setTab(value as AppsTab)}
+        // Flex chain down to the panels so the installed table can fill the
+        // leftover viewport height and scroll internally.
+        className="flex min-h-0 flex-1 flex-col"
+      >
         <TabsList>
           <TabsTrigger value="installed">
             <Package className="size-4" aria-hidden />
@@ -78,7 +84,7 @@ export function AppsView() {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="installed">
+        <TabsContent value="installed" className="flex min-h-0 flex-col">
           <InstalledAppsPanel
             apps={installedApps}
             loading={installed.isPending}
@@ -92,7 +98,7 @@ export function AppsView() {
           />
         </TabsContent>
 
-        <TabsContent value="store">
+        <TabsContent value="store" className="min-h-0 overflow-y-auto">
           <AppStorePanel
             storeApps={store.data?.storeApps ?? []}
             installedApps={installedApps}

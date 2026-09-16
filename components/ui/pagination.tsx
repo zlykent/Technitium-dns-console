@@ -75,7 +75,7 @@ function Pagination({
   pageSize,
   onPageChange,
   onPageSizeChange,
-  pageSizeOptions = [10, 20, 50, 100],
+  pageSizeOptions = [10, 20, 25, 50, 100],
   canChangePageSize = false,
   labels,
   ...props
@@ -89,6 +89,15 @@ function Pagination({
     .replace('{total}', String(total))
 
   const windows = getPageWindow(page, pageCount)
+
+  // Radix renders `SelectValue` as the *selected item's* label, so a `pageSize`
+  // that is not among the options shows up as a blank trigger (there is no item
+  // to display). The app's house page size is 25, which the defaults now include,
+  // but a page is free to use any size — merge the live value in so the current
+  // selection always has a matching item and the trigger is never empty.
+  const options = pageSizeOptions.includes(pageSize)
+    ? pageSizeOptions
+    : [...pageSizeOptions, pageSize].sort((a, b) => a - b)
 
   return (
     <div
@@ -106,7 +115,7 @@ function Pagination({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {pageSizeOptions.map((opt) => (
+                {options.map((opt) => (
                   <SelectItem key={opt} value={String(opt)}>
                     {opt}
                   </SelectItem>

@@ -207,11 +207,13 @@ export function LeasesPanel({ scopes }: LeasesPanelProps) {
   )
 
   return (
-    <>
+    // Flex column so the scrollable table fills the tab's leftover height.
+    <div className="flex min-h-0 min-w-0 flex-1 flex-col">
       <DataTable<Lease>
         label={t('leases.title')}
         columns={columns}
         data={filtered}
+        scrollable
         getRowId={(row) => `${row.scope}-${row.clientIdentifier ?? row.hardwareAddress}-${row.address}`}
         loading={leases.isPending}
         error={leases.error}
@@ -270,7 +272,7 @@ export function LeasesPanel({ scopes }: LeasesPanelProps) {
         pending={remove.isPending}
         error={remove.error ?? undefined}
       />
-    </>
+    </div>
   )
 }
 

@@ -422,3 +422,89 @@ describe('DataTable — flex column lets the table shrink', () => {
     }
   })
 })
+
+describe('DataTable — scrollable fill-and-centre', () => {
+  // A `scrollable` table pins its card to the leftover viewport height, so the
+  // zero-row states cannot live in a table cell (they would sit at the top of a
+  // mostly-blank card). They move into a flex-1 region under the header and
+  // centre vertically. These guard that branch against the static-table path.
+  function tableContainer() {
+    return screen.getByRole('table').closest('[data-slot="table-container"]') as HTMLElement
+  }
+
+  it('stretches the scroll container and keeps rows in the body when there is data', () => {
+    renderWithProviders(<DataTable columns={zoneColumns()} data={ZONES} getRowId={(r) => r.id} scrollable />)
+    expect(tableContainer().className).toContain('overflow-y-auto')
+    expect(tableContainer().className).toContain('flex-1')
+    expect(tableContainer().className).not.toContain('shrink-0')
+    // Rows render normally inside the body.
+    expect(screen.getByText('alpha.com').closest('tbody')).not.toBeNull()
+  })
+
+  it('moves the empty state out of the body into a centred region when scrollable', () => {
+    renderWithProviders(<DataTable columns={zoneColumns()} data={[]} getRowId={(r) => r.id} scrollable />)
+    const empty = screen.getByText('暂无数据')
+    // Not inside a table cell any more…
+    expect(empty.closest('tbody')).toBeNull()
+    expect(empty.closest('[data-slot="table-container"]')).toBeNull()
+    // …but still inside the card, and the header table collapses to `shrink-0`.
+    expect(empty.closest('[data-slot="data-table"]')).not.toBeNull()
+    expect(tableContainer().className).toContain('shrink-0')
+  })
+
+  it('moves the no-results state out of the body too when a filter is active', () => {
+    renderWithProviders(
+      <DataTable columns={zoneColumns()} data={ZONES} getRowId={(r) => r.id} globalFilter="zzz" scrollable />,
+    )
+    const noResults = screen.getByText('没有匹配的结果')
+    expect(noResults.closest('tbody')).toBeNull()
+  })
+
+  it('renders the loading skeleton in the centred region when scrollable', () => {
+    renderWithProviders(<DataTable columns={zoneColumns()} data={[]} getRowId={(r) => r.id} loading scrollable />)
+    expect(screen.getByRole('status').closest('tbody')).toBeNull()
+    expect(screen.getByRole('status').closest('[data-slot="table-container"]')).toBeNull()
+  })
+
+  it('keeps the empty state inside the body for a non-scrollable table', () => {
+    // The static path is unchanged: the empty state stays in a full-width cell.
+    renderWithProviders(<DataTable columns={zoneColumns()} data={[]} getRowId={(r) => r.id} />)
+    expect(screen.getByText('暂无数据').closest('tbody')).not.toBeNull()
+    expect(tableContainer().className).not.toContain('overflow-y-auto')
+  })
+})
+
+describe('DataTable — page-size select display', () => {
+  // Radix `SelectValue` renders the selected *item's* label. If the live page
+  // size is not among the options there is no item to display and the trigger
+  // collapses to a blank box — exactly what operators saw once every list
+  // settled on the house size of 25 while the option list stopped at
+  // 10/20/50/100. These pin the trigger to always show the current value.
+  function pageSizeTrigger() {
+    return screen.getByRole('combobox')
+  }
+
+  it('shows the house page size (25) in the trigger', () => {
+    renderWithProviders(
+      <DataTable
+        columns={zoneColumns()}
+        data={[ZONES[0]]}
+        getRowId={(r) => r.id}
+        server={{ page: 1, pageSize: 25, total: 1, totalPages: 1, onPageChange: vi.fn(), onPageSizeChange: vi.fn() }}
+      />,
+    )
+    expect(pageSizeTrigger()).toHaveTextContent('25')
+  })
+
+  it('merges an unusual page size into the options so the trigger is never blank', () => {
+    renderWithProviders(
+      <DataTable
+        columns={zoneColumns()}
+        data={[ZONES[0]]}
+        getRowId={(r) => r.id}
+        server={{ page: 1, pageSize: 30, total: 1, totalPages: 1, onPageChange: vi.fn(), onPageSizeChange: vi.fn() }}
+      />,
+    )
+    expect(pageSizeTrigger()).toHaveTextContent('30')
+  })
+})

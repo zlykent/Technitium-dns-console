@@ -227,7 +227,7 @@ export function FilterView({ scope }: FilterViewProps) {
   }
 
   return (
-    <PageShell>
+    <PageShell className="h-full">
       <PageHeader
         actions={
           <>
@@ -377,7 +377,9 @@ export function FilterView({ scope }: FilterViewProps) {
         </div>
       )}
 
-      <div className={cn('surface rounded-lg p-2')}>
+      {/* The card fills the leftover viewport height and the tree scrolls
+          inside it, mirroring the scrollable DataTable pages. */}
+      <div className={cn('surface flex min-h-0 flex-1 flex-col overflow-y-auto rounded-lg p-2')}>
         <DomainTree
           key={treeKey}
           scope={scope}

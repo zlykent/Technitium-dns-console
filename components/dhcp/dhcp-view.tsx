@@ -104,7 +104,7 @@ export function DhcpView() {
   const resolvedScope = scopeDetail.data ?? editingScope
 
   return (
-    <PageShell>
+    <PageShell className="h-full">
       <PageHeader
         actions={
           <>
@@ -125,7 +125,13 @@ export function DhcpView() {
       {scopes.error ? (
         <ErrorState error={scopes.error} onRetry={() => void scopes.refetch()} />
       ) : (
-        <Tabs value={tab} onValueChange={(v) => setTab(v as 'scopes' | 'leases')}>
+        <Tabs
+          value={tab}
+          onValueChange={(v) => setTab(v as 'scopes' | 'leases')}
+          // Flex chain down to the panels so their scrollable tables can fill
+          // the leftover viewport height (see `TabsContent` in ui/tabs).
+          className="flex min-h-0 flex-1 flex-col"
+        >
           <TabsList>
             <TabsTrigger value="scopes">
               <Network className="size-4" aria-hidden />
@@ -134,7 +140,7 @@ export function DhcpView() {
             <TabsTrigger value="leases">{t('tabs.leases')}</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="scopes">
+          <TabsContent value="scopes" className="flex min-h-0 flex-col">
             <ScopeList
               scopes={scopes.data?.scopes ?? []}
               loading={scopes.isPending}
@@ -144,7 +150,7 @@ export function DhcpView() {
             />
           </TabsContent>
 
-          <TabsContent value="leases">
+          <TabsContent value="leases" className="flex min-h-0 flex-col">
             <LeasesPanel scopes={scopes.data?.scopes ?? []} />
           </TabsContent>
         </Tabs>

@@ -218,6 +218,14 @@ export function DataTable<T>({
   const selectedIds = React.useMemo(() => Object.keys(selection).filter((key) => selection[key]), [selection])
   const filtered = (Boolean(globalFilter) || filterActive) && rows.length === 0 && !loading && !error
 
+  // A scrollable card stretches to the bottom of the viewport, so the
+  // non-happy states cannot live inside a table cell: they would pin to the
+  // top of a mostly-blank card. With zero rows the whole state (loading
+  // skeleton, error, empty/no-results) moves into a flex-1 region under the
+  // header and centres vertically in the leftover space. The header stays
+  // visible so the columns still give the empty page context.
+  const stateFillsCard = scrollable && rows.length === 0 && (loading || Boolean(error) || !hideHeader)
+
   const labels: PaginationLabels = {
     summary: String(tc.raw('table.showing')),
     pageSize: tc('table.rowsPerPage'),
@@ -307,7 +315,7 @@ export function DataTable<T>({
         <Table
           aria-label={label}
           className={cn(!hasFlexColumn && 'min-w-max', separatedBorders)}
-          containerClassName={scrollable ? 'min-h-0 flex-1 overflow-y-auto' : undefined}
+          containerClassName={cn(scrollable && 'overflow-y-auto', stateFillsCard ? 'shrink-0' : scrollable && 'min-h-0 flex-1')}
         >
           {!hideHeader && (
             <TableHeader className={cn(!scrollable && 'bg-muted/60')}>
@@ -397,7 +405,7 @@ export function DataTable<T>({
           )}
 
           <TableBody>
-            {!loading && !error && rows.length === 0 && (
+            {!stateFillsCard && !loading && !error && rows.length === 0 && (
               <TableRow className="hover:bg-transparent">
                 <TableCell colSpan={columns.length + (enableRowSelection ? 1 : 0)} className="p-0">
                   {filtered ? (
@@ -461,14 +469,47 @@ export function DataTable<T>({
           </TableBody>
         </Table>
 
-        {loading && (
-          <LoadingState
-            rows={Math.min(6, Math.max(3, rows.length || 5))}
-            className="border-border/60 border-t"
-          />
-        )}
+        {stateFillsCard ? (
+          <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+            {error ? (
+              <div className="flex flex-1 items-center">
+                <ErrorState error={error} onRetry={onRetry} className="w-full rounded-none border-0 bg-transparent" />
+              </div>
+            ) : loading ? (
+              <LoadingState rows={6} className="flex-1 justify-center" />
+            ) : (
+              <div className="flex flex-1 items-center">
+                {filtered ? (
+                  <NoResultsState
+                    title={noResults?.title}
+                    body={noResults?.body}
+                    action={noResults?.action}
+                    className="w-full py-8"
+                  />
+                ) : (
+                  <EmptyState
+                    title={empty?.title ?? tc('table.empty')}
+                    body={empty?.body ?? tc('table.emptyHint')}
+                    action={empty?.action}
+                    icon={empty?.icon ?? Inbox}
+                    className="w-full py-8"
+                  />
+                )}
+              </div>
+            )}
+          </div>
+        ) : (
+          <>
+            {loading && (
+              <LoadingState
+                rows={Math.min(6, Math.max(3, rows.length || 5))}
+                className="border-border/60 border-t"
+              />
+            )}
 
-        {error ? <ErrorState error={error} onRetry={onRetry} className="rounded-none border-0" /> : null}
+            {error ? <ErrorState error={error} onRetry={onRetry} className="rounded-none border-0" /> : null}
+          </>
+        )}
       </div>
 
       {(showPagination || footerNote) && (

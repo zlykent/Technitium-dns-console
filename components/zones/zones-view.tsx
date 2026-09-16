@@ -375,7 +375,7 @@ export function ZonesView() {
   const canBulk = can.canModify || can.canDelete
 
   return (
-    <PageShell>
+    <PageShell className="h-full">
       <PageHeader
         actions={
           <>
@@ -407,6 +407,7 @@ export function ZonesView() {
         label={t('title')}
         columns={columns}
         data={rows}
+        scrollable
         getRowId={(row) => row.name}
         loading={zones.isPending}
         error={zones.error}

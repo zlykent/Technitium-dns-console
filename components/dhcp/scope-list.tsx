@@ -176,11 +176,13 @@ export function ScopeList({ scopes, loading, error, onRetry, onEdit }: ScopeList
   )
 
   return (
-    <>
+    // Flex column so the scrollable table fills the tab's leftover height.
+    <div className="flex min-h-0 min-w-0 flex-1 flex-col">
       <DataTable<ScopeSummary>
         label={t('scopes.title')}
         columns={columns}
         data={scopes}
+        scrollable
         getRowId={(row) => row.name}
         loading={loading}
         error={error}
@@ -220,7 +222,7 @@ export function ScopeList({ scopes, loading, error, onRetry, onEdit }: ScopeList
         pending={remove.isPending}
         error={remove.error ?? undefined}
       />
-    </>
+    </div>
   )
 }
 

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { getTranslations } from 'next-intl/server'
 import './globals.css'
 import { Providers } from './providers'
+import { LocaleDetect } from '@/components/layout/locale-detect'
 import { resolveLocale } from '@/lib/i18n/request'
 
 /**
@@ -10,7 +11,9 @@ import { resolveLocale } from '@/lib/i18n/request'
  * The locale is resolved here (cookie first, `Accept-Language` as the tie-break)
  * and written onto `<html lang>` so screen readers and hyphenation behave. There
  * is no path prefix — the language switcher rewrites the cookie and refreshes the
- * router, which keeps every URL stable and shareable.
+ * router, which keeps every URL stable and shareable. `<LocaleDetect>` covers the
+ * case the server cannot see: a proxy that strips `Accept-Language`, corrected on
+ * the client from `navigator.languages` on the very first visit.
  */
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -46,7 +49,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className="min-h-dvh bg-background font-sans text-foreground antialiased">
-        <Providers defaultTarget={defaultTarget}>{children}</Providers>
+        <Providers defaultTarget={defaultTarget}>
+          {children}
+          <LocaleDetect />
+        </Providers>
       </body>
     </html>
   )

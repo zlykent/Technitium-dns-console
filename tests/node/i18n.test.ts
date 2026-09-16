@@ -22,7 +22,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { LOCALE_COOKIE, LOCALE_LABELS, defaultLocale, isLocale, locales, negotiateLocale } from '@/lib/i18n/config'
+import { LOCALE_COOKIE, LOCALE_LABELS, defaultLocale, isLocale, localeFromLanguageTags, locales, negotiateLocale } from '@/lib/i18n/config'
 import { MESSAGE_NAMESPACES, loadMessages } from '@/lib/i18n/messages'
 import { ALL_NAV_ITEMS, NAV_SECTIONS, VISIBLE_NAV_ITEMS } from '@/lib/nav'
 
@@ -192,6 +192,40 @@ describe('negotiateLocale', () => {
       const result = negotiateLocale(header)
       expect(locales, `negotiateLocale(${JSON.stringify(header)}) -> ${result}`).toContain(result)
     }
+  })
+})
+
+describe('localeFromLanguageTags', () => {
+  // The client-side sibling of negotiateLocale: input is navigator.languages, an
+  // already-ordered preference list with no q-values, and the contract is to
+  // return null (not a forced default) when the system speaks nothing we ship.
+  it('returns null for an absent or empty tag list', () => {
+    expect(localeFromLanguageTags(null)).toBeNull()
+    expect(localeFromLanguageTags(undefined)).toBeNull()
+    expect(localeFromLanguageTags([])).toBeNull()
+  })
+
+  it('reads the first tag that maps to a shipped locale', () => {
+    expect(localeFromLanguageTags(['en-US', 'en'])).toBe('en')
+    expect(localeFromLanguageTags(['zh-CN', 'zh', 'en-US'])).toBe('zh')
+  })
+
+  it('matches a region-qualified tag by its language subtag', () => {
+    expect(localeFromLanguageTags(['zh-Hant-TW'])).toBe('zh')
+    expect(localeFromLanguageTags(['en-GB'])).toBe('en')
+  })
+
+  it('skips languages we do not ship and keeps scanning in preference order', () => {
+    expect(localeFromLanguageTags(['fr-FR', 'de', 'en-US'])).toBe('en')
+  })
+
+  it('returns null when no shipped language appears at all', () => {
+    expect(localeFromLanguageTags(['fr-FR', 'de-DE', 'ja'])).toBeNull()
+  })
+
+  it('is case insensitive and tolerates whitespace and empty entries', () => {
+    expect(localeFromLanguageTags(['  EN-us '])).toBe('en')
+    expect(localeFromLanguageTags(['', '  ', 'ZH'])).toBe('zh')
   })
 })
 
